@@ -97,6 +97,7 @@ dependencies:
   - memory_profiler
   - mendeleev
   - modestimage
+  - mpl-qtthread
   - mxtools >=1.0.3
   - napari >=0.4.17
   - natsort
