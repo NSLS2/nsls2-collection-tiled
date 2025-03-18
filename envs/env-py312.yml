@@ -14,6 +14,7 @@ dependencies:
   # - ansiwrap
   - area-detector-handlers >=0.0.9
   - arvpyf
+  - ase
   - attrs >=18.0
   - awkward
   - black
@@ -43,6 +44,7 @@ dependencies:
   - dask-ml
   - dask-xgboost
   - databroker >=2.0.0b55
+  - datview
   - dictdiffer
   - diffpy.pdffit2
   - diffpy.pdfgui
