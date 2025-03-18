@@ -1,4 +1,4 @@
-name: 2025-1.0-py311-tiled
+name: 2025-2.0-py311-tiled
 channels:
   - conda-forge
 dependencies:
@@ -206,7 +206,7 @@ dependencies:
     # - gladier-tools
     - h5json
     - mimesis
-    - ophyd-async[ca,pva]
+    - ophyd-async[ca,pva] >=0.9.0
     - ortools
     - pyhyperscattering[bluesky,ui]
     - refuse
