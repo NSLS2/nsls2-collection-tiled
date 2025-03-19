@@ -164,6 +164,15 @@ jobs:
     strategy:
       matrix:
         python-version: ["3.11"]
+        repos:
+          - org: "NSLS-II-CSX"
+            repo: "profile_collection"
+            branch: "main"
+            beamline-acronym: "csx"
+          - org: "NSLS-II-SMI"
+            repo: "profile_collection"
+            branch: "master"
+            beamline-acronym: "smi"
       fail-fast: false
     env:
       TZ: America/New_York
@@ -200,7 +209,7 @@ jobs:
           conda_env_url: ""
           conda_env_md5: "${{ needs.generate_conda_packd_envs.outputs.checksum_md5_py311 }}"
           conda_pack_env_tarball: "${{ needs.generate_conda_packd_envs.outputs.artifacts_dir }}/${{ needs.generate_conda_packd_envs.outputs.conda_pack_env_py311 }}.tar.gz"
-          org: "NSLS-II-CSX"
-          repo: "profile_collection"
-          branch: "main"
-          beamline-acronym: "csx"
+          org: ${{ matrix.repos.org }}
+          repo: ${{ matrix.repos.repo }}
+          branch: ${{ matrix.repos.branch }}
+          beamline-acronym: ${{ matrix.repos.beamline-acronym }}
