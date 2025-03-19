@@ -89,10 +89,17 @@ jobs:
           echo "artifact_py${{ env.PYTHONVER }}=${ARTIFACT_FILE_NAME}" >> $GITHUB_OUTPUT
           echo "conda_pack_env_py${{ env.PYTHONVER }}=${CONDA_PACK_ENV_NAME}" >> $GITHUB_OUTPUT
 
+      # - name: Setup umamba
+      #   uses: mamba-org/setup-micromamba@v1
+      #   with:
+      #     environment-file: envs/env-py${{ env.PYTHONVER }}.yml
+      #     log-level: info
+
       - name: Setup umamba
         uses: mamba-org/setup-micromamba@v1
         with:
-          environment-file: envs/env-py${{ env.PYTHONVER }}.yml
+          create-args: >-
+            python=${{ matrix.python-version }}
           log-level: info
 
       - name: Check env
