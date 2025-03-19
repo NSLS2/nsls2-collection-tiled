@@ -101,6 +101,7 @@ jobs:
           environment-name: ${{ env.CONDA_PACK_ENV_NAME }}
           create-args: >-
             python=${{ matrix.python-version }}
+            conda-pack
           log-level: info
 
       - name: Check env
