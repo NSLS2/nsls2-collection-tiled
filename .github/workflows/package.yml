@@ -81,16 +81,7 @@ jobs:
       - name: Share artifact file name
         id: artifact-file-name
         run: |
-          echo "artifact_${{ env.PYTHONVER }}=${ARTIFACT_FILE_NAME}" >> $GITHUB_OUTPUT
-
-      # - uses: conda-incubator/setup-miniconda@v3
-      #   with:
-      #     python-version: ${{ matrix.python-version }}
-      #     # mamba-version: "*"
-      #     channels: conda-forge
-      #     channel-priority: strict
-      #     activate-environment: packaging
-      #     environment-file: envs/env-py${{ env.PYTHONVER }}.yml
+          echo "artifact_py${{ env.PYTHONVER }}=${ARTIFACT_FILE_NAME}" >> $GITHUB_OUTPUT
 
       - name: Setup umamba
         uses: mamba-org/setup-micromamba@v1
@@ -148,7 +139,7 @@ jobs:
     needs: generate_conda_packd_envs
     strategy:
       matrix:
-        python-version: ["3.10", "3.11", "3.12"]
+        python-version: ["3.11"]
       fail-fast: false
     env:
       TZ: America/New_York
@@ -171,7 +162,7 @@ jobs:
       - name: Download artifacts
         uses: actions/download-artifact@v4
         with:
-          name: ${{ needs.generate_conda_packd_envs.outputs.artifact_${{ env.PYTHONVER }} }}
+          name: ${{ needs.generate_conda_packd_envs.outputs.artifact_py311 }}
 
       - name: Test the env with the beamline integration test action
         uses: NSLS2/gha-beamline-integration-test@support-local-conda-env
