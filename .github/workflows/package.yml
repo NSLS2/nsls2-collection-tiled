@@ -178,6 +178,11 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: ${{ needs.generate_conda_packd_envs.outputs.artifact_py311 }}
+          path: ${{ needs.generate_conda_packd_envs.outputs.artifacts_dir }}
+
+      - name: List the directory with downloaded artifacts
+        run: |
+          ls -la ${{ needs.generate_conda_packd_envs.outputs.artifacts_dir }}
 
       - name: Test the env with the beamline integration test action
         uses: NSLS2/gha-beamline-integration-test@support-local-conda-env
