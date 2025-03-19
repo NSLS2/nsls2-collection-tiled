@@ -23,9 +23,13 @@ jobs:
 
     # Map a step output to a job output
     outputs:
+      artifacts_dir: ${{ steps.artifact-file-name.outputs.artifacts_dir }}
       artifact_py310: ${{ steps.artifact-file-name.outputs.artifact_py310 }}
       artifact_py311: ${{ steps.artifact-file-name.outputs.artifact_py311 }}
       artifact_py312: ${{ steps.artifact-file-name.outputs.artifact_py312 }}
+      conda_pack_env_py310: ${{ steps.artifact-file-name.outputs.conda_pack_env_py310 }}
+      conda_pack_env_py311: ${{ steps.artifact-file-name.outputs.conda_pack_env_py311 }}
+      conda_pack_env_py312: ${{ steps.artifact-file-name.outputs.conda_pack_env_py312 }}
 
     steps:
       - name: Checkout the code
@@ -81,7 +85,9 @@ jobs:
       - name: Share artifact file name
         id: artifact-file-name
         run: |
+          echo "artifacts_dir=${{ env.ARTIFACTS_DIR }}" >> $GITHUB_OUTPUT
           echo "artifact_py${{ env.PYTHONVER }}=${ARTIFACT_FILE_NAME}" >> $GITHUB_OUTPUT
+          echo "conda_pack_env_py${{ env.PYTHONVER }}=${CONDA_PACK_ENV_NAME}" >> $GITHUB_OUTPUT
 
       - name: Setup umamba
         uses: mamba-org/setup-micromamba@v1
@@ -169,7 +175,7 @@ jobs:
         with:
           conda_env_url: ''
           conda_env_md5: ''
-          conda_pack_env_tarball: ${ARTIFACTS_DIR}/${CONDA_PACK_ENV_NAME}.tar.gz
+          conda_pack_env_tarball: "${{ needs.generate_conda_packd_envs.outputs.artifacts_dir }}/${{ needs.generate_conda_packd_envs.outputs.conda_pack_env_py311 }}.tar.gz"
           org: "NSLS-II-CSX"
           repo: "profile_collection"
           branch: "main"
