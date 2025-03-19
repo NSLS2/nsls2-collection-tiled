@@ -114,6 +114,17 @@ jobs:
         run: |
           cat ${ARTIFACTS_DIR}/*sum.txt
 
+      - name: Test the env with the beamline integration test action
+        uses: NSLS2/gha-beamline-integration-test@support-local-conda-env
+        with:
+          conda_env_url: ''
+          conda_env_md5: ''
+          conda_pack_env_tarball: ${ARTIFACTS_DIR}/${CONDA_PACK_ENV_NAME}.tar.gz
+          org: "NSLS-II-CSX"
+          repo: "profile_collection"
+          branch: "main"
+          beamline-acronym: "csx"
+
       - name: Upload artifacts for branch
         if: |
           github.ref != 'refs/heads/main'
