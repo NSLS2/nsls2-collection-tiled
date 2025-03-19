@@ -30,6 +30,9 @@ jobs:
       conda_pack_env_py310: ${{ steps.artifact-file-name.outputs.conda_pack_env_py310 }}
       conda_pack_env_py311: ${{ steps.artifact-file-name.outputs.conda_pack_env_py311 }}
       conda_pack_env_py312: ${{ steps.artifact-file-name.outputs.conda_pack_env_py312 }}
+      checksum_md5_py310: ${{ steps.checksum_md5.outputs.checksum_md5_py310 }}
+      checksum_md5_py311: ${{ steps.checksum_md5.outputs.checksum_md5_py311 }}
+      checksum_md5_py312: ${{ steps.checksum_md5.outputs.checksum_md5_py312 }}
 
     steps:
       - name: Checkout the code
@@ -141,6 +144,11 @@ jobs:
         run: |
           cat ${ARTIFACTS_DIR}/*sum.txt
 
+      - name: Share checksum with the output
+        id: checksum_md5
+        run: |
+          echo "checksum_md5_py${{ env.PYTHONVER }}=$(cat ${ARTIFACTS_DIR}/${CONDA_PACK_ENV_NAME}-md5sum.txt | sed 's/.*= //')" >> $GITHUB_OUTPUT
+
       - name: Upload artifacts for the env tarball
         uses: actions/upload-artifact@v4
         with:
@@ -183,13 +191,13 @@ jobs:
       - name: List the directory with downloaded artifacts
         run: |
           ls -la ${{ needs.generate_conda_packd_envs.outputs.artifacts_dir }}
-          mkdir -p ~/download_conda_env/
+          mkdir -v -p ~/download_conda_env/
 
       - name: Test the env with the beamline integration test action
         uses: NSLS2/gha-beamline-integration-test@support-local-conda-env
         with:
-          conda_env_url: ''
-          conda_env_md5: ''
+          conda_env_url: ""
+          conda_env_md5: "${{ needs.generate_conda_packd_envs.outputs.checksum_md5_py311 }}"
           conda_pack_env_tarball: "${{ needs.generate_conda_packd_envs.outputs.artifacts_dir }}/${{ needs.generate_conda_packd_envs.outputs.conda_pack_env_py311 }}.tar.gz"
           org: "NSLS-II-CSX"
           repo: "profile_collection"
