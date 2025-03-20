@@ -197,10 +197,10 @@ jobs:
           export ARTIFACTS_DIR="$(echo $outputs | yq .artifacts_dir)"
           echo "ARTIFACTS_DIR=${ARTIFACTS_DIR}">> $GITHUB_ENV
 
-          export ARTIFACT_FILE_NAME="$(echo $outputs | yq .artifact_py${PYTHOVER})"
+          export ARTIFACT_FILE_NAME="$(echo $outputs | yq .artifact_py${PYTHONVER})"
           echo "ARTIFACT_FILE_NAME=${ARTIFACT_FILE_NAME}" >> $GITHUB_ENV
 
-          export CHECKSUM_MD5="$(echo $outputs | yq .checksum_md5_py${PYTHOVER})"
+          export CHECKSUM_MD5="$(echo $outputs | yq .checksum_md5_py${PYTHONVER})"
           echo "CHECKSUM_MD5=${CHECKSUM_MD5}" >> $GITHUB_ENV
 
           env | sort -u
