@@ -8,7 +8,7 @@ on:
 
 jobs:
   generate_conda_packd_envs:
-    name: conda-pack'd env with Python ${{ matrix.python-version }}
+    name: "Generate: py${{ matrix.python-version }}"
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -158,7 +158,7 @@ jobs:
           retention-days: ${{ env.RETENTION_DAYS }}
 
   test_conda_packd_envs:
-    name: "Test py${{ matrix.python-version }}: ${{ matrix.repos.beamline-acronym }} / ${{ matrix.repos.branch }}"
+    name: "Test: py${{ matrix.python-version }} / ${{ matrix.repos.beamline-acronym }} / ${{ matrix.repos.branch }}"
     runs-on: ubuntu-latest
     needs: generate_conda_packd_envs
     strategy:
@@ -190,9 +190,16 @@ jobs:
           export PYTHONVER=$(echo ${{ matrix.python-version }} | sed 's/\.//g')
           echo "PYTHONVER=${PYTHONVER}" >> $GITHUB_ENV
 
-          echo "ARTIFACTS_DIR=${{ needs.generate_conda_packd_envs.outputs.artifacts_dir }}" >> $GITHUB_ENV
-          echo "ARTIFACT_FILE_NAME=${{ needs.generate_conda_packd_envs.outputs[format('artifact_py{0}', env.PYTHOVER)] }}" >> $GITHUB_ENV
-          echo "CHECKSUM_MD5=${{ needs.generate_conda_packd_envs.outputs[format('checksum_md5_py{0}', env.PYTHOVER)] }}" >> $GITHUB_ENV
+      - name: Set artifacts env vars
+        run: |
+          export ARTIFACTS_DIR="${{ needs.generate_conda_packd_envs.outputs.artifacts_dir }}"
+          echo "ARTIFACTS_DIR=${ARTIFACTS_DIR}">> $GITHUB_ENV
+
+          export ARTIFACT_FILE_NAME="${{ needs.generate_conda_packd_envs.outputs[format('artifact_py{0}', env.PYTHOVER)] }}"
+          echo "ARTIFACT_FILE_NAME=${ARTIFACT_FILE_NAME}" >> $GITHUB_ENV
+
+          export CHECKSUM_MD5="${{ needs.generate_conda_packd_envs.outputs[format('checksum_md5_py{0}', env.PYTHOVER)] }}"
+          echo "CHECKSUM_MD5=${CHECKSUM_MD5}" >> $GITHUB_ENV
 
           env | sort -u
 
