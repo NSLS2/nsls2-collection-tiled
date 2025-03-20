@@ -195,13 +195,14 @@ jobs:
           export ARTIFACTS_DIR="${{ needs.generate_conda_packd_envs.outputs.artifacts_dir }}"
           echo "ARTIFACTS_DIR=${ARTIFACTS_DIR}">> $GITHUB_ENV
 
+          outputs="${{ toJson(needs.generate_conda_packd_envs.outputs) }}"
           echo ""
           echo "=== formatting: ${{ format('artifact_py{0}', env.PYTHOVER) }}"
           echo "=== needs.generate_conda_packd_envs.outputs: ${{ toJson(needs.generate_conda_packd_envs.outputs) }}"
-          echo "=== toJson: ${{ toJson(needs.generate_conda_packd_envs.outputs[format('artifact_py{0}', env.PYTHOVER)]) }}"
+          echo "=== toJson: ${{ needs.generate_conda_packd_envs.outputs[format('artifact_py{0}', env.PYTHOVER)] }}"
           echo ""
 
-          export ARTIFACT_FILE_NAME="${{ needs.generate_conda_packd_envs.outputs[format('artifact_py{0}', env.PYTHOVER)] }}"
+          export ARTIFACT_FILE_NAME=$(echo ${outputs} | jq -r ".artifact_py${PYTHOVER}")
           echo "ARTIFACT_FILE_NAME=${ARTIFACT_FILE_NAME}" >> $GITHUB_ENV
 
           echo "=== ARTIFACT_FILE_NAME: ${ARTIFACT_FILE_NAME}"
