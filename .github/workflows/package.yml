@@ -200,8 +200,11 @@ jobs:
           export ARTIFACT_FILE_NAME="$(echo $outputs | yq .artifact_py${PYTHONVER})"
           echo "ARTIFACT_FILE_NAME=${ARTIFACT_FILE_NAME}" >> $GITHUB_ENV
 
-          export CHECKSUM_MD5="$(echo $outputs | yq .checksum_md5_py${PYTHONVER})"
-          echo "CHECKSUM_MD5=${CHECKSUM_MD5}" >> $GITHUB_ENV
+          export CONDA_PACK_ENV_NAME="$(echo $outputs | yq .conda_pack_env_py${PYTHONVER})"
+          echo "CONDA_PACK_ENV_NAME=${CONDA_PACK_ENV_NAME}" >> $GITHUB_ENV
+
+          export CONDA_PACK_ENV_CHECKSUM_MD5="$(echo $outputs | yq .checksum_md5_py${PYTHONVER})"
+          echo "CONDA_PACK_ENV_CHECKSUM_MD5=${CHECKSUM_MD5}" >> $GITHUB_ENV
 
           env | sort -u
 
@@ -220,8 +223,8 @@ jobs:
         uses: NSLS2/gha-beamline-integration-test@support-local-conda-env
         with:
           conda_env_url: ""
-          conda_env_md5: "${{ env.CHECKSUM_MD5 }}"
-          conda_pack_env_tarball: "${{ env.ARTIFACTS_DIR }}/${{ env.ARTIFACT_FILE_NAME }}.tar.gz"
+          conda_env_md5: "${{ env.CONDA_PACK_ENV_CHECKSUM_MD5 }}"
+          conda_pack_env_tarball: "${{ env.ARTIFACTS_DIR }}/${{ env.CONDA_PACK_ENV_NAME }}.tar.gz"
           org: "${{ matrix.repos.org }}"
           repo: "${{ matrix.repos.repo }}"
           branch: "${{ matrix.repos.branch }}"
