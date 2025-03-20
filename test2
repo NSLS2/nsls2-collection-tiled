@@ -1,0 +1,12 @@
+{
+  artifact_py310: test-2025-2.0-py310-tiled-20250319231301,
+  artifact_py311: test-2025-2.0-py311-tiled-20250319231300,
+  artifact_py312: test-2025-2.0-py312-tiled-20250319231311,
+  artifacts_dir: /home/runner/artifacts,
+  checksum_md5_py310: 9097eb8ff5706a4b2e4edae900259baa,
+  checksum_md5_py311: e80721062e8733a2af4aec540b495b3d,
+  checksum_md5_py312: c7b67887e256e4717b6b39109c597674,
+  conda_pack_env_py310: 2025-2.0-py310-tiled,
+  conda_pack_env_py311: 2025-2.0-py311-tiled,
+  conda_pack_env_py312: 2025-2.0-py312-tiled
+}
