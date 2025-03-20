@@ -163,7 +163,7 @@ jobs:
     needs: generate_conda_packd_envs
     strategy:
       matrix:
-        python-version: ["3.10", "3.11"]
+        python-version: ["3.10", "3.11", "3.12"]
         repos:
           - org: "NSLS-II-CSX"
             repo: "profile_collection"
@@ -204,7 +204,7 @@ jobs:
           echo "CONDA_PACK_ENV_NAME=${CONDA_PACK_ENV_NAME}" >> $GITHUB_ENV
 
           export CONDA_PACK_ENV_CHECKSUM_MD5="$(echo $outputs | yq .checksum_md5_py${PYTHONVER})"
-          echo "CONDA_PACK_ENV_CHECKSUM_MD5=${CHECKSUM_MD5}" >> $GITHUB_ENV
+          echo "CONDA_PACK_ENV_CHECKSUM_MD5=${CONDA_PACK_ENV_CHECKSUM_MD5}" >> $GITHUB_ENV
 
           env | sort -u
 
