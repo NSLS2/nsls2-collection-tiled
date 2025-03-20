@@ -198,7 +198,7 @@ jobs:
           echo ""
           echo "=== formatting: ${{ format('artifact_py{0}', env.PYTHOVER) }}"
           echo "=== needs.generate_conda_packd_envs.outputs: ${{ toJson(needs.generate_conda_packd_envs.outputs) }}"
-          echo "=== toJson: ${{ toJson(needs.generate_conda_packd_envs.outputs[format('artifact_py{0}', env.PYTHOVER)]) }}""
+          echo "=== toJson: ${{ toJson(needs.generate_conda_packd_envs.outputs[format('artifact_py{0}', env.PYTHOVER)]) }}"
           echo ""
 
           export ARTIFACT_FILE_NAME="${{ needs.generate_conda_packd_envs.outputs[format('artifact_py{0}', env.PYTHOVER)] }}"
