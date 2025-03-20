@@ -192,7 +192,7 @@ jobs:
 
           echo "ARTIFACTS_DIR=${{ needs.generate_conda_packd_envs.outputs.artifacts_dir }}" >> $GITHUB_ENV
           echo "ARTIFACT_FILE_NAME=${{ needs.generate_conda_packd_envs.outputs[format('artifact_py{0}', env.PYTHOVER)] }}" >> $GITHUB_ENV
-          echo "CHECKSUM_MD5=${{ needs.generate_conda_packd_envs.outputs[format('checksum_md5_py{0}', env.PYTHOVER)] }} >> $GITHUB_ENV
+          echo "CHECKSUM_MD5=${{ needs.generate_conda_packd_envs.outputs[format('checksum_md5_py{0}', env.PYTHOVER)] }}" >> $GITHUB_ENV
 
           env | sort -u
 
@@ -213,7 +213,7 @@ jobs:
           conda_env_url: ""
           conda_env_md5: "${{ env.CHECKSUM_MD5 }}"
           conda_pack_env_tarball: "${{ env.ARTIFACTS_DIR }}/${{ env.ARTIFACT_FILE_NAME }}.tar.gz"
-          org: ${{ matrix.repos.org }}
-          repo: ${{ matrix.repos.repo }}
-          branch: ${{ matrix.repos.branch }}
-          beamline-acronym: ${{ matrix.repos.beamline-acronym }}
+          org: "${{ matrix.repos.org }}"
+          repo: "${{ matrix.repos.repo }}"
+          branch: "${{ matrix.repos.branch }}"
+          beamline-acronym: "${{ matrix.repos.beamline-acronym }}"
