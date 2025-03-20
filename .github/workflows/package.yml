@@ -191,7 +191,7 @@ jobs:
           echo "PYTHONVER=${PYTHONVER}" >> $GITHUB_ENV
 
           env | sort -u
-          echo "${{ needs.generate_conda_packd_envs.outputs }}"
+          echo "needs.generate_conda_packd_envs.outputs=***-${{ toJson(needs.generate_conda_packd_envs.outputs) }}-***"
 
       - name: Download artifacts
         uses: actions/download-artifact@v4
