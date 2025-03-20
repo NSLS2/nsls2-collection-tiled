@@ -190,25 +190,29 @@ jobs:
           export PYTHONVER=$(echo ${{ matrix.python-version }} | sed 's/\.//g')
           echo "PYTHONVER=${PYTHONVER}" >> $GITHUB_ENV
 
+          echo "ARTIFACTS_DIR=${{ needs.generate_conda_packd_envs.outputs.artifacts_dir }}" >> $GITHUB_ENV
+          echo "ARTIFACT_FILE_NAME=${{ needs.generate_conda_packd_envs.outputs[format('artifact_py{0}', env.PYTHOVER)] }}" >> $GITHUB_ENV
+          echo "CHECKSUM_MD5=${{ needs.generate_conda_packd_envs.outputs[format('checksum_md5_py{0}', env.PYTHOVER)] }} >> $GITHUB_ENV
+
           env | sort -u
 
       - name: Download artifacts
         uses: actions/download-artifact@v4
         with:
-          name: ${{ needs.generate_conda_packd_envs.outputs[format('artifact_py{0}', env.PYTHOVER)]}}
-          path: ${{ needs.generate_conda_packd_envs.outputs.artifacts_dir }}
+          name: ${{ env.ARTIFACT_FILE_NAME }}
+          path: ${{ env.ARTIFACTS_DIR }}
 
       - name: List the directory with downloaded artifacts
         run: |
-          ls -la ${{ needs.generate_conda_packd_envs.outputs.artifacts_dir }}
-          mkdir -v -p ~/download_conda_env/
+          ls -la ${ARTIFACTS_DIR}
+          # mkdir -v -p ~/download_conda_env/
 
       - name: Test the env with the beamline integration test action
         uses: NSLS2/gha-beamline-integration-test@support-local-conda-env
         with:
           conda_env_url: ""
-          conda_env_md5: "${{ needs.generate_conda_packd_envs.outputs.checksum_md5_py311 }}"
-          conda_pack_env_tarball: "${{ needs.generate_conda_packd_envs.outputs.artifacts_dir }}/${{ needs.generate_conda_packd_envs.outputs.conda_pack_env_py311 }}.tar.gz"
+          conda_env_md5: "${{ env.CHECKSUM_MD5 }}"
+          conda_pack_env_tarball: "${{ env.ARTIFACTS_DIR }}/${{ env.ARTIFACT_FILE_NAME }}.tar.gz"
           org: ${{ matrix.repos.org }}
           repo: ${{ matrix.repos.repo }}
           branch: ${{ matrix.repos.branch }}
