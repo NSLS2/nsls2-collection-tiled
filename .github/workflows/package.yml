@@ -166,11 +166,11 @@ jobs:
         repos:
           - org: "NSLS-II-CSX"
             repo: "profile_collection"
-            branch: "main"
+            branch: "2025-2.0"
             beamline-acronym: "csx"
-          - org: "NSLS-II-SMI"
+          - org: "NSLS-II-TES"
             repo: "profile_collection"
-            branch: "master"
+            branch: "2025-2.0"
             beamline-acronym: "smi"
         python-version: ["3.10", "3.11", "3.12"]
       fail-fast: false
