@@ -171,7 +171,7 @@ jobs:
           - org: "NSLS-II-TES"
             repo: "profile_collection"
             branch: "2025-2.0"
-            beamline-acronym: "smi"
+            beamline-acronym: "tes"
         python-version: ["3.10", "3.11", "3.12"]
       fail-fast: false
     env:
