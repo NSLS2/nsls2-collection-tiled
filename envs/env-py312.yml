@@ -108,7 +108,7 @@ dependencies:
   - nodejs
   - nsls2-detector-handlers >=0.0.3
   - nslsii >=0.10.7
-  - numexpr >=2.8.0
+  - numexpr >=2.8.0,!=2.8.4
   - numpy >=1.20
   - nyxtools >=0.0.12
   - oct2py
