@@ -141,6 +141,10 @@ jobs:
           openssl md5 ${ARTIFACTS_DIR}/${CONDA_PACK_ENV_NAME}.tar.gz > ${ARTIFACTS_DIR}/${CONDA_PACK_ENV_NAME}-md5sum.txt
           chmod -v 664 ${ARTIFACTS_DIR}/${CONDA_PACK_ENV_NAME}[.-]*
 
+      - name: Run import tests
+        run: |
+          python import-tests.py --python-version=${{ matrix.python-version }}
+
       - name: Checksum files
         run: |
           cat ${ARTIFACTS_DIR}/*sum.txt
