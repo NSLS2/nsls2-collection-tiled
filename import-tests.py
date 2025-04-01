@@ -23,6 +23,9 @@ print(f"{bluesky.__version__ = }")
 import ophyd
 print(f"{ophyd.__version__ = }")
 
+import ophyd_async
+print(f"{ophyd_async.__version__ = }")
+
 import databroker
 print(f"{databroker.__version__ = }")
 
