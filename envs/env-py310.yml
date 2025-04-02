@@ -211,7 +211,7 @@ dependencies:
     - mimesis
     - ophyd-async[ca,pva] >=0.10.0a2
     - ortools
-    - pyhyperscattering[bluesky,ui]
+    - pyhyperscattering[bluesky,ui] >=0.2.9
     - refuse
   #***************************************************************************#
   #                                                                           #
