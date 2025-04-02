@@ -114,7 +114,7 @@ dependencies:
   - oct2py
   - opencv
   - openmpi >=4.1.4
-  - ophyd >=1.8.0
+  - ophyd >=1.10.5
   # pandas and deps
   - pandas
   - openpyxl  # used by pandas .to_excel()
