@@ -117,8 +117,7 @@ jobs:
           cat ${ARTIFACTS_DIR}/*sum.txt
 
       - name: Upload artifacts for branch
-        if: |
-          github.ref != 'refs/heads/main'
+        if: github.event_name != 'release'
         uses: actions/upload-artifact@v4
         with:
           name: test-${{ env.CONDA_PACK_ENV_NAME }}-${{ env.DATETIME_STRING }}
@@ -126,8 +125,7 @@ jobs:
           retention-days: 14
 
       - name: Upload artifacts for release
-        if: |
-          github.ref == 'refs/heads/main'
+        if: github.event_name == 'release'
         uses: actions/upload-artifact@v4
         with:
           name: ${{ env.CONDA_PACK_ENV_NAME }}
@@ -146,6 +144,21 @@ jobs:
       - name: Download all artifacts
         id: download
         uses: actions/download-artifact@v4
+
+      - name: Extract artifacts
+        run: |
+          EXTRACT_DIR="${{ steps.download.outputs.download-path }}/extracted"
+          mkdir -p "$EXTRACT_DIR"
+          for file in "${{ steps.download.outputs.download-path }}"/*; do
+            if [ -f "$file" ]; then
+              echo "Extracting $file..."
+              unzip "$file" -d "$EXTRACT_DIR"
+              rm "$file"
+            fi
+          done
+          # Move extracted files back to download path
+          mv "$EXTRACT_DIR"/* "${{ steps.download.outputs.download-path }}/"
+          rmdir "$EXTRACT_DIR"
 
       - name: Upload to Zenodo
         run: |
