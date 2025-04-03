@@ -2,6 +2,8 @@ name: package_env
 
 on:
   push:
+  release:
+    types: [published]
   # TODO: react also on reopening the PR.
   # pull_request:
   workflow_dispatch:
@@ -131,3 +133,27 @@ jobs:
           name: ${{ env.CONDA_PACK_ENV_NAME }}
           path: ${{ env.ARTIFACTS_DIR }}
           retention-days: 60
+
+  upload_to_zenodo:
+    name: Upload to Zenodo
+    needs: generate_conda_packd_envs
+    if: success() && github.event_name == 'release'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v4
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - name: Upload to Zenodo
+        run: |
+          export ZENODO_TOKEN=${{ secrets.ZENODO_TOKEN }}
+          echo "ZENODO_TOKEN=${ZENODO_TOKEN}" >> $GITHUB_ENV
+          python3 zenodo_upload.py \
+            --conceptrecid "4057062" \
+            --version "${{ github.ref_name }}" \
+            --artifacts-dir "artifacts" \
+            --dry-run
