@@ -100,7 +100,7 @@ jobs:
       - name: Upload artifacts for the env .yml file
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ env.CONDA_PACK_ENV_NAME }}.yml
+          name: ${{ env.CONDA_PACK_ENV_NAME }}-yml
           path: ${{ env.ARTIFACTS_DIR }}/${{ env.CONDA_PACK_ENV_NAME }}.yml
           retention-days: 60
 
@@ -174,5 +174,4 @@ jobs:
           python3 zenodo_upload.py \
             --conceptrecid "4057062" \
             --version "${{ github.ref_name }}" \
-            --artifacts-dir "${{ steps.download.outputs.download-path }}" \
-            --dry-run
+            --artifacts-dir "${{ steps.download.outputs.download-path }}"
