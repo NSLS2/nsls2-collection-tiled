@@ -147,36 +147,25 @@ jobs:
         with:
           path: "artifacts"
 
-      - name: Extract artifacts
+      - name: Flatten artifact directories
         run: |
-          EXTRACT_DIR="${{ steps.download.outputs.download-path }}/extracted"
-          mkdir -p "$EXTRACT_DIR"
+          echo "Download path: ${{ steps.download.outputs.download-path }}"
+          echo "Contents before flattening:"
+          ls -la "${{ steps.download.outputs.download-path }}"
           
-          # Check if there are files to process
-          if [ "$(find "${{ steps.download.outputs.download-path }}" -maxdepth 1 -type f | wc -l)" -eq 0 ]; then
-            echo "No files found to extract"
-            rmdir "$EXTRACT_DIR"
-            exit 0
-          fi
-          
-          for file in "${{ steps.download.outputs.download-path }}"/*; do
-            if [ -f "$file" ]; then
-              echo "Extracting $file..."
-              unzip -o "$file" -d "$EXTRACT_DIR" || echo "Failed to extract $file"
-              rm "$file"
+          # Find all directories except the download path itself
+          for dir in "${{ steps.download.outputs.download-path }}"/*; do
+            if [ -d "$dir" ]; then
+              echo "Processing directory: $dir"
+              # Move all files to the download path
+              find "$dir" -type f -exec mv -v {} "${{ steps.download.outputs.download-path }}/" \;
+              # Remove the now empty directory
+              rm -rf "$dir"
             fi
           done
           
-          # Check if any files were extracted before moving
-          if [ "$(find "$EXTRACT_DIR" -type f | wc -l)" -eq 0 ]; then
-            echo "No files were extracted to $EXTRACT_DIR"
-            rmdir "$EXTRACT_DIR"
-            exit 0
-          fi
-          
-          # Move extracted files back to download path
-          mv "$EXTRACT_DIR"/* "${{ steps.download.outputs.download-path }}/"
-          rmdir "$EXTRACT_DIR"
+          echo "Contents after flattening:"
+          ls -la "${{ steps.download.outputs.download-path }}"
 
       - name: Upload to Zenodo
         run: |
