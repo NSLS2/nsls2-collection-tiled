@@ -144,9 +144,8 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Download all artifacts
+        id: download
         uses: actions/download-artifact@v4
-        with:
-          path: artifacts
 
       - name: Upload to Zenodo
         run: |
@@ -155,5 +154,5 @@ jobs:
           python3 zenodo_upload.py \
             --conceptrecid "4057062" \
             --version "${{ github.ref_name }}" \
-            --artifacts-dir "artifacts" \
+            --artifacts-dir "${{ steps.download.outputs.download-path }}" \
             --dry-run
