@@ -135,7 +135,7 @@ jobs:
   upload_to_zenodo:
     name: Upload to Zenodo
     needs: generate_conda_packd_envs
-    if: success() # && github.event_name == 'release'
+    if: success() && github.event_name == 'release'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the code
