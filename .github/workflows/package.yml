@@ -151,13 +151,29 @@ jobs:
         run: |
           EXTRACT_DIR="${{ steps.download.outputs.download-path }}/extracted"
           mkdir -p "$EXTRACT_DIR"
+          
+          # Check if there are files to process
+          if [ "$(find "${{ steps.download.outputs.download-path }}" -maxdepth 1 -type f | wc -l)" -eq 0 ]; then
+            echo "No files found to extract"
+            rmdir "$EXTRACT_DIR"
+            exit 0
+          fi
+          
           for file in "${{ steps.download.outputs.download-path }}"/*; do
             if [ -f "$file" ]; then
               echo "Extracting $file..."
-              unzip "$file" -d "$EXTRACT_DIR"
+              unzip -o "$file" -d "$EXTRACT_DIR" || echo "Failed to extract $file"
               rm "$file"
             fi
           done
+          
+          # Check if any files were extracted before moving
+          if [ "$(find "$EXTRACT_DIR" -type f | wc -l)" -eq 0 ]; then
+            echo "No files were extracted to $EXTRACT_DIR"
+            rmdir "$EXTRACT_DIR"
+            exit 0
+          fi
+          
           # Move extracted files back to download path
           mv "$EXTRACT_DIR"/* "${{ steps.download.outputs.download-path }}/"
           rmdir "$EXTRACT_DIR"
