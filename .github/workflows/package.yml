@@ -144,6 +144,8 @@ jobs:
       - name: Download all artifacts
         id: download
         uses: actions/download-artifact@v4
+        with:
+          path: "artifacts"
 
       - name: Extract artifacts
         run: |
