@@ -236,6 +236,15 @@ def get_files_from_artifacts(artifacts_dir, version):
     files = {}
     artifacts_path = Path(artifacts_dir)
     
+    print(f"Looking for files in: {artifacts_path.absolute()}")
+    if not artifacts_path.exists():
+        print(f"ERROR: Directory {artifacts_path} does not exist!")
+        return files
+        
+    print("Directory contents:")
+    for item in artifacts_path.iterdir():
+        print(f"  - {item.name} ({'file' if item.is_file() else 'directory'})")
+    
     # Find all files in the artifacts directory
     for file_path in artifacts_path.glob("*"):
         if file_path.is_file():
