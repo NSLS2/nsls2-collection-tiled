@@ -77,7 +77,7 @@ def create_new_version(
     newver_draft = ret_newver.json()["links"]["self"]
 
     notes_urls = [
-        f"https://github.com/nsls2-conda-envs/nsls2-collection-tiled/releases/tag/{version}"
+        f"https://github.com/NSLS2/nsls2-collection-tiled/releases/tag/{version}"
     ]
     notes_urls_strs = "<br>\n".join([f'<a href="{url}">Release notes</a>'
                                      if url else ""
