@@ -10,7 +10,7 @@ on:
 
 jobs:
   generate_conda_packd_envs:
-    name: conda-pack'd env with Python ${{ matrix.python-version }}
+    name: "Generate: py${{ matrix.python-version }}"
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -22,6 +22,19 @@ jobs:
     defaults:
       run:
         shell: bash -leo pipefail {0}
+
+    # Map a step output to a job output
+    outputs:
+      artifacts_dir: ${{ steps.artifact-file-name.outputs.artifacts_dir }}
+      artifact_py310: ${{ steps.artifact-file-name.outputs.artifact_py310 }}
+      artifact_py311: ${{ steps.artifact-file-name.outputs.artifact_py311 }}
+      artifact_py312: ${{ steps.artifact-file-name.outputs.artifact_py312 }}
+      conda_pack_env_py310: ${{ steps.artifact-file-name.outputs.conda_pack_env_py310 }}
+      conda_pack_env_py311: ${{ steps.artifact-file-name.outputs.conda_pack_env_py311 }}
+      conda_pack_env_py312: ${{ steps.artifact-file-name.outputs.conda_pack_env_py312 }}
+      checksum_md5_py310: ${{ steps.checksum_md5.outputs.checksum_md5_py310 }}
+      checksum_md5_py311: ${{ steps.checksum_md5.outputs.checksum_md5_py311 }}
+      checksum_md5_py312: ${{ steps.checksum_md5.outputs.checksum_md5_py312 }}
 
     steps:
       - name: Checkout the code
@@ -38,19 +51,11 @@ jobs:
 
       - name: Set env vars
         run: |
-          set -euo pipefail
-
-          export REPOSITORY_NAME=${GITHUB_REPOSITORY#*/}  # just the repo, as opposed to org/repo
-          echo "REPOSITORY_NAME=${REPOSITORY_NAME}" >> $GITHUB_ENV
-
           export DATETIME_STRING=$(date +%Y%m%d%H%M%S)
           echo "DATETIME_STRING=${DATETIME_STRING}" >> $GITHUB_ENV
 
           export PYTHONVER=$(echo ${{ matrix.python-version }} | sed 's/\.//g')
           echo "PYTHONVER=${PYTHONVER}" >> $GITHUB_ENV
-
-          export CONDA_PACK_TEMPLATE_DIR=${HOME}/conda-pack-template
-          echo "CONDA_PACK_TEMPLATE_DIR=${CONDA_PACK_TEMPLATE_DIR}" >> $GITHUB_ENV
 
           env_name=$(cat configs/config-py${PYTHONVER}.yml | shyaml get-value env_name)
           export CONDA_PACK_ENV_NAME=${env_name}
@@ -64,20 +69,46 @@ jobs:
 
           env | sort -u
 
-      # - uses: conda-incubator/setup-miniconda@v3
-      #   with:
-      #     python-version: ${{ matrix.python-version }}
-      #     # mamba-version: "*"
-      #     channels: conda-forge
-      #     channel-priority: strict
-      #     activate-environment: packaging
-      #     environment-file: envs/env-py${{ env.PYTHONVER }}.yml
+      - name: Set artifact file name for non-main branch
+        if: github.ref != 'refs/heads/main'
+        run: |
+          export ARTIFACT_FILE_NAME="test-${{ env.CONDA_PACK_ENV_NAME }}-${{ env.DATETIME_STRING }}"
+          echo "ARTIFACT_FILE_NAME=${ARTIFACT_FILE_NAME}" >> $GITHUB_ENV
+
+          export RETENTION_DAYS=14
+          echo "RETENTION_DAYS=${RETENTION_DAYS}" >> $GITHUB_ENV
+
+      - name: Set artifact file name for main branch
+        if: github.ref == 'refs/heads/main'
+        run: |
+          export ARTIFACT_FILE_NAME="${{ env.CONDA_PACK_ENV_NAME }}"
+          echo "ARTIFACT_FILE_NAME=${ARTIFACT_FILE_NAME}" >> $GITHUB_ENV
+
+          export RETENTION_DAYS=90
+          echo "RETENTION_DAYS=${RETENTION_DAYS}" >> $GITHUB_ENV
+
+      - name: Share artifact file name
+        id: artifact-file-name
+        run: |
+          echo "artifacts_dir=${{ env.ARTIFACTS_DIR }}" >> $GITHUB_OUTPUT
+          echo "artifact_py${{ env.PYTHONVER }}=${ARTIFACT_FILE_NAME}" >> $GITHUB_OUTPUT
+          echo "conda_pack_env_py${{ env.PYTHONVER }}=${CONDA_PACK_ENV_NAME}" >> $GITHUB_OUTPUT
 
       - name: Setup umamba
         uses: mamba-org/setup-micromamba@v1
         with:
           environment-file: envs/env-py${{ env.PYTHONVER }}.yml
           log-level: info
+
+      # # For testing only:
+      # - name: Setup umamba
+      #   uses: mamba-org/setup-micromamba@v1
+      #   with:
+      #     environment-name: ${{ env.CONDA_PACK_ENV_NAME }}
+      #     create-args: >-
+      #       python=${{ matrix.python-version }}
+      #       conda-pack
+      #     log-level: info
 
       - name: Check env
         run: |
@@ -102,7 +133,7 @@ jobs:
         with:
           name: ${{ env.CONDA_PACK_ENV_NAME }}-yml
           path: ${{ env.ARTIFACTS_DIR }}/${{ env.CONDA_PACK_ENV_NAME }}.yml
-          retention-days: 60
+          retention-days: 90
 
       - name: Export files
         run: |
@@ -112,30 +143,98 @@ jobs:
           openssl md5 ${ARTIFACTS_DIR}/${CONDA_PACK_ENV_NAME}.tar.gz > ${ARTIFACTS_DIR}/${CONDA_PACK_ENV_NAME}-md5sum.txt
           chmod -v 664 ${ARTIFACTS_DIR}/${CONDA_PACK_ENV_NAME}[.-]*
 
+      - name: Run import tests
+        run: |
+          python import-tests.py --python-version=${{ matrix.python-version }}
+
       - name: Checksum files
         run: |
           cat ${ARTIFACTS_DIR}/*sum.txt
 
-      - name: Upload artifacts for branch
-        if: github.event_name != 'release'
-        uses: actions/upload-artifact@v4
-        with:
-          name: test-${{ env.CONDA_PACK_ENV_NAME }}-${{ env.DATETIME_STRING }}
-          path: ${{ env.ARTIFACTS_DIR }}
-          retention-days: 14
+      - name: Share checksum with the output
+        id: checksum_md5
+        run: |
+          echo "checksum_md5_py${{ env.PYTHONVER }}=$(cat ${ARTIFACTS_DIR}/${CONDA_PACK_ENV_NAME}-md5sum.txt | sed 's/.*= //')" >> $GITHUB_OUTPUT
 
-      - name: Upload artifacts for release
-        if: github.event_name == 'release'
+      - name: Upload artifacts for the env tarball
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ env.CONDA_PACK_ENV_NAME }}
+          name: ${{ env.ARTIFACT_FILE_NAME }}
           path: ${{ env.ARTIFACTS_DIR }}
-          retention-days: 60
+          retention-days: ${{ env.RETENTION_DAYS }}
+
+  test_conda_packd_envs:
+    name: "Test: py${{ matrix.python-version }} / ${{ matrix.repos.beamline-acronym }} / ${{ matrix.repos.branch }}"
+    runs-on: ubuntu-latest
+    needs: generate_conda_packd_envs
+    strategy:
+      matrix:
+        repos:
+          - org: "NSLS-II-CSX"
+            repo: "profile_collection"
+            branch: "2025-2.0"
+            beamline-acronym: "csx"
+          - org: "NSLS-II-TES"
+            repo: "profile_collection"
+            branch: "2025-2.0"
+            beamline-acronym: "tes"
+        python-version: ["3.10", "3.11", "3.12"]
+      fail-fast: false
+    env:
+      TZ: America/New_York
+
+    defaults:
+      run:
+        shell: bash -leo pipefail {0}
+
+      - name: Set env vars
+        run: |
+          export PYTHONVER=$(echo ${{ matrix.python-version }} | sed 's/\.//g')
+          echo "PYTHONVER=${PYTHONVER}" >> $GITHUB_ENV
+
+      - name: Set artifacts env vars
+        run: |
+          outputs="${{ toJson(needs.generate_conda_packd_envs.outputs) }}"
+
+          export ARTIFACTS_DIR="$(echo $outputs | yq .artifacts_dir)"
+          echo "ARTIFACTS_DIR=${ARTIFACTS_DIR}">> $GITHUB_ENV
+
+          export ARTIFACT_FILE_NAME="$(echo $outputs | yq .artifact_py${PYTHONVER})"
+          echo "ARTIFACT_FILE_NAME=${ARTIFACT_FILE_NAME}" >> $GITHUB_ENV
+
+          export CONDA_PACK_ENV_NAME="$(echo $outputs | yq .conda_pack_env_py${PYTHONVER})"
+          echo "CONDA_PACK_ENV_NAME=${CONDA_PACK_ENV_NAME}" >> $GITHUB_ENV
+
+          export CONDA_PACK_ENV_CHECKSUM_MD5="$(echo $outputs | yq .checksum_md5_py${PYTHONVER})"
+          echo "CONDA_PACK_ENV_CHECKSUM_MD5=${CONDA_PACK_ENV_CHECKSUM_MD5}" >> $GITHUB_ENV
+
+          env | sort -u
+
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ env.ARTIFACT_FILE_NAME }}
+          path: ${{ env.ARTIFACTS_DIR }}
+
+      - name: List the directory with downloaded artifacts
+        run: |
+          ls -la ${ARTIFACTS_DIR}
+
+      - name: Test the env with the beamline integration test action
+        uses: NSLS2/gha-beamline-integration-test@2025-1.0-test
+        with:
+          conda_env_url: ""
+          conda_env_md5: "${{ env.CONDA_PACK_ENV_CHECKSUM_MD5 }}"
+          conda_pack_env_tarball: "${{ env.ARTIFACTS_DIR }}/${{ env.CONDA_PACK_ENV_NAME }}.tar.gz"
+          org: "${{ matrix.repos.org }}"
+          repo: "${{ matrix.repos.repo }}"
+          branch: "${{ matrix.repos.branch }}"
+          beamline-acronym: "${{ matrix.repos.beamline-acronym }}"
 
   upload_to_zenodo:
     name: Upload to Zenodo
-    needs: generate_conda_packd_envs
-    if: success() # && github.event_name == 'release'
+    needs: test_conda_packd_envs
+    if: success() && github.event_name == 'release'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the code

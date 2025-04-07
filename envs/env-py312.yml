@@ -1,4 +1,4 @@
-name: 2025-1.0-py312-tiled
+name: 2025-2.0-py312-tiled
 channels:
   - conda-forge
 dependencies:
@@ -14,6 +14,7 @@ dependencies:
   # - ansiwrap
   - area-detector-handlers >=0.0.9
   - arvpyf
+  - ase
   - attrs >=18.0
   - awkward
   - black
@@ -42,10 +43,11 @@ dependencies:
   - dask-jobqueue
   - dask-ml
   - dask-xgboost
-  - databroker >=2.0.0b55
+  - databroker >=2.0.0b59
+  - datview
   - dictdiffer
   - diffpy.pdffit2
-  # - diffpy.pdfgui
+  - diffpy.pdfgui
   - diffpy.structure
   - dioptas
   - discorpy
@@ -97,6 +99,7 @@ dependencies:
   - memory_profiler
   - mendeleev
   - modestimage
+  - mpl-qtthread
   - mxtools >=1.0.3
   - napari >=0.4.17
   - natsort
@@ -104,14 +107,14 @@ dependencies:
   - nexpy >=1.0.7
   - nodejs
   - nsls2-detector-handlers >=0.0.3
-  - nslsii >=0.10.7
-  - numexpr >=2.8.0
+  - nslsii >=0.11.1
+  - numexpr >=2.8.0,!=2.8.4
   - numpy >=1.20
   - nyxtools >=0.0.12
   - oct2py
   - opencv
   - openmpi >=4.1.4
-  - ophyd >=1.8.0
+  - ophyd >=1.10.5
   # pandas and deps
   - pandas
   - openpyxl  # used by pandas .to_excel()
@@ -175,7 +178,7 @@ dependencies:
   - suitcase-tiff >=0.4.0
   - suitcase-utils
   - sympy
-  - tiled >=0.1.0b13
+  - tiled >=0.1.0b20
   - toml
   - tomopy >=1.12.2
   - tornado
@@ -206,9 +209,9 @@ dependencies:
     # - gladier-tools
     - h5json
     - mimesis
-    - ophyd-async[ca,pva]
+    - ophyd-async[ca,pva] >=0.10.0a2
     - ortools
-    - pyhyperscattering[bluesky,ui]
+    - pyhyperscattering[bluesky,ui] >=0.2.9
     - refuse
   #***************************************************************************#
   #                                                                           #
