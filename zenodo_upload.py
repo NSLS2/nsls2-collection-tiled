@@ -2,14 +2,12 @@ import datetime
 import json
 import os
 import pprint
-import subprocess
 import sys
-import time as ttime
 import argparse
 from pathlib import Path
-from itertools import count
 
 import requests
+
 
 # BASE_URL = "https://sandbox.zenodo.org/api"
 BASE_URL = "https://zenodo.org/api"
@@ -231,7 +229,7 @@ def update_deposition_with_files(conceptrecid=None, files=None, token=None):
     upload_files(bucket_url, files=files, token=token)
 
 
-def get_files_from_artifacts(artifacts_dir, version):
+def get_files_from_artifacts(artifacts_dir):
     """Get all files from the artifacts directory and prepare them for upload."""
     files = {}
     artifacts_path = Path(artifacts_dir)
