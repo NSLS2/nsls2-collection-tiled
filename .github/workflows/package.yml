@@ -191,7 +191,6 @@ jobs:
       - name: Checkout the code
         uses: actions/checkout@v4
 
-
       - name: Set env vars
         run: |
           export PYTHONVER=$(echo ${{ matrix.python-version }} | sed 's/\.//g')
