@@ -97,6 +97,8 @@ jobs:
         with:
           environment-file: envs/env-py${{ env.PYTHONVER }}.yml
           log-level: info
+        env:
+          CONDA_OVERRIDE_GLIBC: "2.28"
 
       # # For testing only:
       # - name: Setup umamba
