@@ -272,7 +272,7 @@ def main():
         raise ValueError("Zenodo token must be provided either via --token or ZENODO_TOKEN environment variable")
     
     # Get files from artifacts directory
-    files = get_files_from_artifacts(args.artifacts_dir, args.version)
+    files = get_files_from_artifacts(args.artifacts_dir)
     
     if args.dry_run:
         print("DRY RUN: Would upload the following files:")
