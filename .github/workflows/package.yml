@@ -272,6 +272,14 @@ jobs:
           echo "Contents after flattening:"
           ls -la "${{ steps.download.outputs.download-path }}"
 
+          echo "Renaming .yml to .yml.txt"
+          for file in "${{ steps.download.outputs.download-path }}"/*.yml; do
+            mv "$file" "$file.txt"
+          done
+
+          echo "Contents after renaming:"
+          ls -la "${{ steps.download.outputs.download-path }}"
+
       - name: Upload to Zenodo
         run: |
           export ZENODO_TOKEN=${{ secrets.ZENODO_TOKEN }}
