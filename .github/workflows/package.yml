@@ -174,7 +174,7 @@ jobs:
         repos:
           - org: "NSLS-II-CSX"
             repo: "profile_collection"
-            branch: "2025-2.0"
+            branch: "main"
             beamline-acronym: "csx"
           - org: "NSLS-II-TES"
             repo: "profile_collection"
