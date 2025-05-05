@@ -37,3 +37,7 @@ print(f"{nslsii.__version__ = }")
 
 import numexpr
 print(f"{numexpr.__version__ = }")
+
+import larch
+import larch.xrd
+print(f"{larch.__version__ = }")
