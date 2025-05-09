@@ -172,13 +172,17 @@ jobs:
     strategy:
       matrix:
         repos:
-          - org: "NSLS-II-CSX"
-            repo: "profile_collection"
+          - org: "NSLS2"
+            repo: "csx-profile-collection"
             branch: "main"
             beamline-acronym: "csx"
-          - org: "NSLS-II-TES"
-            repo: "profile_collection"
-            branch: "2025-2.0"
+          # - org: "NSLS2"
+          #   repo: "smi-profile-collection"
+          #   branch: "main"
+          #   beamline-acronym: "smi"
+          - org: "NSLS2"
+            repo: "tes-profile-collection"
+            branch: "main"
             beamline-acronym: "tes"
         python-version: ["3.10", "3.11", "3.12"]
       fail-fast: false
@@ -257,7 +261,7 @@ jobs:
           echo "Download path: ${{ steps.download.outputs.download-path }}"
           echo "Contents before flattening:"
           ls -la "${{ steps.download.outputs.download-path }}"
-          
+
           # Find all directories except the download path itself
           for dir in "${{ steps.download.outputs.download-path }}"/*; do
             if [ -d "$dir" ]; then
@@ -268,7 +272,7 @@ jobs:
               rm -rf "$dir"
             fi
           done
-          
+
           echo "Contents after flattening:"
           ls -la "${{ steps.download.outputs.download-path }}"
 

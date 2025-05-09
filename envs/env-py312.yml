@@ -19,7 +19,7 @@ dependencies:
   - awkward
   - black
   - blosc-hdf5-plugin
-  - bluesky >=1.13.1rc2
+  - bluesky >=1.14.0
   - bluesky-adaptive >=0.3.1
   - bluesky-kafka >=0.10.0
   - bluesky-live >=0.0.8
@@ -43,7 +43,7 @@ dependencies:
   - dask-jobqueue
   - dask-ml
   - dask-xgboost
-  - databroker >=2.0.0b59
+  - databroker >=2.0.0b62
   - datview
   - dictdiffer
   - diffpy.pdffit2
@@ -90,6 +90,7 @@ dependencies:
   - juliaup
   - jupyter
   - jupyterlab
+  - larixite
   - ldap3
   - legacy-suitcase
   - lixtools
@@ -136,6 +137,7 @@ dependencies:
   - pycryptodome
   - pyepics >=3.4.2
   - pyfai >=2024.5.0
+  - pygithub
   - pyfftw
   - pymatgen >=2024.5.1
   - maggma >=0.66
@@ -147,6 +149,7 @@ dependencies:
   - pypdf2
   - pyqt >=5.15.0
   - pyqtgraph
+  # - pyside6
   - pystackreg
   - python-blosc
   - python-graphviz
@@ -178,7 +181,7 @@ dependencies:
   - suitcase-tiff >=0.4.0
   - suitcase-utils
   - sympy
-  - tiled >=0.1.0b20
+  - tiled >=0.1.0b27
   - toml
   - tomopy >=1.12.2
   - tornado
@@ -202,7 +205,6 @@ dependencies:
   - pip
   - pip:
     - ansiwrap
-    # - bluesky >=1.13.0a3
     # - bloptools >=0.7.0
     - digautoprofiler
     # - gladier
@@ -232,6 +234,7 @@ dependencies:
   - slack-sdk
   # Beamline-specific packages
   - hklpy  # [linux]
+  - hklpy2
   - hxnfly >=0.0.11
   - kkcalc
   - ppmac
