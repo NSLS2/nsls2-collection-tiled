@@ -40,15 +40,6 @@ jobs:
       - name: Checkout the code
         uses: actions/checkout@v4
 
-      - name: Install Python for YAML CLI tools
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.10"
-
-      - name: Install YAML CLI tools
-        run: |
-          python3 -m pip install shyaml
-
       - name: Set env vars
         run: |
           export DATETIME_STRING=$(date +%Y%m%d%H%M%S)
@@ -57,7 +48,6 @@ jobs:
           export PYTHONVER=$(echo ${{ matrix.python-version }} | sed 's/\.//g')
           echo "PYTHONVER=${PYTHONVER}" >> $GITHUB_ENV
 
-          # env_name=$(cat configs/config-py${PYTHONVER}.yml | shyaml get-value env_name)
           export CONDA_PACK_ENV_NAME="${{ github.ref_name }}-py${PYTHONVER}-tiled"
           echo "CONDA_PACK_ENV_NAME=${CONDA_PACK_ENV_NAME}" >> $GITHUB_ENV
 
