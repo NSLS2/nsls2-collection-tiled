@@ -176,13 +176,13 @@ jobs:
             repo: "csx-profile-collection"
             branch: "main"
             beamline-acronym: "csx"
-          - org: "NSLS2"
-            repo: "smi-profile-collection"
-            branch: "main"
-            beamline-acronym: "smi"
+          # - org: "NSLS2"
+          #   repo: "smi-profile-collection"
+          #   branch: "main"
+          #   beamline-acronym: "smi"
           - org: "NSLS2"
             repo: "tes-profile-collection"
-            branch: "main"
+            branch: "2025-2.0"
             beamline-acronym: "tes"
         python-version: ["3.10", "3.11", "3.12"]
       fail-fast: false
