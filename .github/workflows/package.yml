@@ -182,7 +182,7 @@ jobs:
           #   beamline-acronym: "smi"
           - org: "NSLS2"
             repo: "tes-profile-collection"
-            branch: "2025-2.0"
+            branch: "main"
             beamline-acronym: "tes"
         python-version: ["3.10", "3.11", "3.12"]
       fail-fast: false
