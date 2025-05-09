@@ -173,9 +173,13 @@ jobs:
       matrix:
         repos:
           - org: "NSLS2"
-            repo: "smi-profile-collection"
+            repo: "csx-profile-collection"
             branch: "main"
             beamline-acronym: "csx"
+          - org: "NSLS2"
+            repo: "smi-profile-collection"
+            branch: "main"
+            beamline-acronym: "smi"
           - org: "NSLS2"
             repo: "tes-profile-collection"
             branch: "main"
