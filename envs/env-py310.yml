@@ -149,7 +149,7 @@ dependencies:
   - pypdf2
   - pyqt >=5.15.0
   - pyqtgraph
-  - pyside6
+  # - pyside6
   - pystackreg
   - python-blosc
   - python-graphviz
