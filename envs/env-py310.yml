@@ -1,4 +1,4 @@
-name: 2025-2.0-py310-tiled
+name: 2025-2.1-py310-tiled
 channels:
   - conda-forge
 dependencies:
