@@ -285,6 +285,10 @@ def main():
     # Get token from environment
     token = os.environ.get("ZENODO_TOKEN", "")
 
+    # Ensure token is not empty during non-dry-run executions
+    if not token and not args.dry_run:
+        print_now("Error: ZENODO_TOKEN environment variable is not set or is empty.")
+        sys.exit(1)
     # Get files from artifacts directory
     files = get_files_from_artifacts(args.artifacts_dir)
 
