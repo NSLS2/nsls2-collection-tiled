@@ -1,4 +1,4 @@
-name: 2025-2.1-py311-tiled
+name: 2025-2.2-py311-tiled
 channels:
   - conda-forge
 dependencies:
@@ -183,7 +183,7 @@ dependencies:
   - sympy
   - tiled >=0.1.0b27
   - toml
-  - tomopy >=1.12.2
+  - tomopy >=1.15.2
   - tornado
   - tqdm
   - tzlocal !=3.0
