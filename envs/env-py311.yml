@@ -183,7 +183,8 @@ dependencies:
   - sympy
   - tiled >=0.1.0b29
   - toml
-  - tomopy >=1.15.2
+  # Latest tomopy v1.15.2 has conflicts with some packages in this environment.
+  - tomopy >=1.12.2
   - tornado
   - tqdm
   - tzlocal !=3.0
