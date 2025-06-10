@@ -202,11 +202,11 @@ conda-unpack
 
     upload_files(bucket_url, files=all_files, token=token)
 
-    # ret = requests.post(
-    #     resp_update.json()["links"]["publish"], params={"access_token": token}
-    # )
-    # print_now(ret.status_code, ret.text)
-    # return ret.json()
+    ret = requests.post(
+        resp_update.json()["links"]["publish"], params={"access_token": token}
+    )
+    print_now(ret.status_code, ret.text)
+    return ret.json()
 
 
 def update_deposition_with_files(conceptrecid=None, files=None, token=None):

@@ -19,7 +19,7 @@ dependencies:
   - awkward
   - black
   - blosc-hdf5-plugin
-  - bluesky >=1.14.0
+  - bluesky >=1.14.2
   - bluesky-adaptive >=0.3.1
   - bluesky-kafka >=0.10.0
   - bluesky-live >=0.0.8
@@ -43,7 +43,7 @@ dependencies:
   - dask-jobqueue
   - dask-ml
   - dask-xgboost
-  - databroker >=2.0.0b62
+  - databroker >=2.0.0b64
   - datview
   - dictdiffer
   - diffpy.pdffit2
@@ -181,7 +181,7 @@ dependencies:
   - suitcase-tiff >=0.4.0
   - suitcase-utils
   - sympy
-  - tiled >=0.1.0b27
+  - tiled >=0.1.0b29
   - toml
   - tomopy >=1.15.2
   - tornado
