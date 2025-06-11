@@ -108,6 +108,9 @@ jobs:
         with:
           environment-file: envs/env-py${{ env.PYTHONVER }}.yml
           log-level: info
+          condarc: |
+            channels:
+              - conda-forge
         env:
           CONDA_OVERRIDE_GLIBC: "2.28"
 
@@ -135,9 +138,9 @@ jobs:
       - name: Check conda configs
         run: |
           # For reference: https://docs.conda.io/projects/conda/en/latest/user-guide/configuration/use-condarc.html
-          cat /home/runner/.condarc
-          cat /usr/share/miniconda/.condarc
-          cat /home/runner/work/_temp/setup-micromamba/.condarc
+          cat /home/runner/.condarc || echo "No /home/runner/.condarc file"
+          cat /usr/share/miniconda/.condarc || echo "No /usr/share/miniconda/.condarc file"
+          cat /home/runner/work/_temp/setup-micromamba/.condarc || echo "No /home/runner/work/_temp/setup-micromamba/.condarc file"
 
       - name: Export of the env .yml file
         run: |
