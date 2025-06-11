@@ -1,4 +1,4 @@
-name: 2025-2.1-py311-tiled
+name: 2025-2.2-py311-tiled
 channels:
   - conda-forge
 dependencies:
@@ -19,12 +19,13 @@ dependencies:
   - awkward
   - black
   - blosc-hdf5-plugin
-  - bluesky >=1.14.0
+  - bluesky >=1.14.2
   - bluesky-adaptive >=0.3.1
   - bluesky-kafka >=0.10.0
   - bluesky-live >=0.0.8
   - bluesky-queueserver >=0.0.19
   - bluesky-queueserver-api >=0.0.10
+  - bluesky-tiled-plugins >=2.0.0b64
   - bluesky-widgets >=0.0.15
   - bokeh
   - boto3
@@ -43,7 +44,7 @@ dependencies:
   - dask-jobqueue
   - dask-ml
   - dask-xgboost
-  - databroker >=2.0.0b62
+  - databroker >=2.0.0b64
   - datview
   - dictdiffer
   - diffpy.pdffit2
@@ -181,8 +182,9 @@ dependencies:
   - suitcase-tiff >=0.4.0
   - suitcase-utils
   - sympy
-  - tiled >=0.1.0b27
+  - tiled >=0.1.0b29
   - toml
+  # Latest tomopy v1.15.2 has conflicts with some packages in this environment.
   - tomopy >=1.12.2
   - tornado
   - tqdm
