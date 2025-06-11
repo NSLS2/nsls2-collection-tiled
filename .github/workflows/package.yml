@@ -111,6 +111,7 @@ jobs:
           condarc: |
             channels:
               - conda-forge
+              - nodefaults
         env:
           CONDA_OVERRIDE_GLIBC: "2.28"
 
