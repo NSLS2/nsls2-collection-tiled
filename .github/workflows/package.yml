@@ -104,7 +104,7 @@ jobs:
           echo "conda_pack_env_py${{ env.PYTHONVER }}=${CONDA_PACK_ENV_NAME}" >> $GITHUB_OUTPUT
 
       - name: Setup umamba
-        uses: mamba-org/setup-micromamba@v1
+        uses: mamba-org/setup-micromamba@v2
         with:
           environment-file: envs/env-py${{ env.PYTHONVER }}.yml
           log-level: info
@@ -124,7 +124,6 @@ jobs:
       - name: Check env
         run: |
           # For reference: https://www.gnu.org/software/bash/manual/html_node/The-Set-Builtin.html.
-          set -euo pipefail
           conda info
           conda env list
           conda list
@@ -132,6 +131,13 @@ jobs:
           conda config --show-sources
           conda config --show
           printenv | sort
+
+      - name: Check conda configs
+        run: |
+          # For reference: https://docs.conda.io/projects/conda/en/latest/user-guide/configuration/use-condarc.html
+          cat /home/runner/.condarc
+          cat /usr/share/miniconda/.condarc
+          cat /home/runner/work/_temp/setup-micromamba/.condarc
 
       - name: Export of the env .yml file
         run: |
@@ -255,6 +261,11 @@ jobs:
     needs: test_conda_packd_envs
     if: success() && github.event_name == 'release'
     runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        shell: bash -leo pipefail {0}
+
     steps:
       - name: Checkout the code
         uses: actions/checkout@v4
