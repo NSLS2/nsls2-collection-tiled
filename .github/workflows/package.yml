@@ -103,15 +103,15 @@ jobs:
           echo "artifact_py${{ env.PYTHONVER }}=${ARTIFACT_FILE_NAME}" >> $GITHUB_OUTPUT
           echo "conda_pack_env_py${{ env.PYTHONVER }}=${CONDA_PACK_ENV_NAME}" >> $GITHUB_OUTPUT
 
+      - name: Remove system-wide condarc
+        run: |
+          sudo rm -f /usr/share/miniconda/.condarc
+
       - name: Setup umamba
         uses: mamba-org/setup-micromamba@v2
         with:
           environment-file: envs/env-py${{ env.PYTHONVER }}.yml
           log-level: info
-          condarc: |
-            channels:
-              - conda-forge
-              - nodefaults
         env:
           CONDA_OVERRIDE_GLIBC: "2.28"
 
