@@ -155,6 +155,8 @@ dependencies:
   - python-blosc
   - python-graphviz
   - python-pptx
+  - pyvisa
+  - pyvisa-py
   - pyxrf >=1.0.28
   - pyzbar
   - qt >=5.15.0
