@@ -2,11 +2,12 @@ name: package_env
 
 on:
   push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
   release:
     types: [published]
-  # TODO: react also on reopening the PR.
-  # pull_request:
-  workflow_dispatch:
 
 jobs:
   pre-commit:
