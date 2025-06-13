@@ -136,6 +136,7 @@ dependencies:
   - py4xs
   - pycentroids
   - pycryptodome
+  - pydantic !=2.11.4
   - pyepics >=3.4.2
   - pyfai >=2024.5.0
   - pygithub
