@@ -2,11 +2,12 @@ name: package_env
 
 on:
   push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
   release:
     types: [published]
-  # TODO: react also on reopening the PR.
-  # pull_request:
-  workflow_dispatch:
 
 jobs:
   pre-commit:
@@ -67,7 +68,8 @@ jobs:
           export PYTHONVER=$(echo ${{ matrix.python-version }} | sed 's/\.//g')
           echo "PYTHONVER=${PYTHONVER}" >> $GITHUB_ENV
 
-          export CONDA_PACK_ENV_NAME="${{ github.ref_name }}-py${PYTHONVER}-tiled"
+          export REF_NAME_NO_SLASHES=$(echo "${{ github.ref_name }}" | sed 's/\//-/g')
+          export CONDA_PACK_ENV_NAME="${REF_NAME_NO_SLASHES}-py${PYTHONVER}-tiled"
           echo "CONDA_PACK_ENV_NAME=${CONDA_PACK_ENV_NAME}" >> $GITHUB_ENV
 
           export ARTIFACTS_DIR="$HOME/artifacts"
