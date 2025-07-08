@@ -23,9 +23,9 @@ jobs:
         with:
           python-version: "3.x"
 
-      - uses: astral-sh/setup-uv@v6
+      - uses: astral-sh/setup-uv@bd01e18f51369d5a26f1651c3cb451d3417e3bba # v6
 
-      - uses: pre-commit/action@v3.0.1
+      - uses: pre-commit/action@2c7b3805fd2a0fd8c1884dcaebf91fc102a13ecd # v3.0.1
         with:
           extra_args: --hook-stage manual --all-files
 
@@ -121,7 +121,7 @@ jobs:
           sudo rm -f /usr/share/miniconda/.condarc
 
       - name: Setup umamba
-        uses: mamba-org/setup-micromamba@v2
+        uses: mamba-org/setup-micromamba@b09ef9b599704322748535812ca03efb2625677b # v2
         with:
           environment-file: envs/env-py${{ env.PYTHONVER }}.yml
           log-level: info
