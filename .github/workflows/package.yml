@@ -17,6 +17,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          persist-credentials: false
 
       - uses: actions/setup-python@v5
         with:
@@ -59,6 +60,8 @@ jobs:
     steps:
       - name: Checkout the code
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       - name: Set env vars
         run: |
@@ -68,7 +71,7 @@ jobs:
           export PYTHONVER=$(echo ${{ matrix.python-version }} | sed 's/\.//g')
           echo "PYTHONVER=${PYTHONVER}" >> $GITHUB_ENV
 
-          export REF_NAME_NO_SLASHES=$(echo "${{ github.ref_name }}" | sed 's/\//-/g')
+          export REF_NAME_NO_SLASHES=$(echo "${GITHUB_REF_NAME}" | sed 's/\//-/g')
           export CONDA_PACK_ENV_NAME="${REF_NAME_NO_SLASHES}-py${PYTHONVER}-tiled"
           echo "CONDA_PACK_ENV_NAME=${CONDA_PACK_ENV_NAME}" >> $GITHUB_ENV
 
@@ -83,27 +86,35 @@ jobs:
       - name: Set artifact file name for non-release
         if: github.event_name != 'release'
         run: |
-          export ARTIFACT_FILE_NAME="${{ env.CONDA_PACK_ENV_NAME }}-${{ env.DATETIME_STRING }}"
+          export ARTIFACT_FILE_NAME="${CONDA_PACK_ENV_NAME}-${DATETIME_STRING}"
           echo "ARTIFACT_FILE_NAME=${ARTIFACT_FILE_NAME}" >> $GITHUB_ENV
 
           export RETENTION_DAYS=14
           echo "RETENTION_DAYS=${RETENTION_DAYS}" >> $GITHUB_ENV
+        env:
+          CONDA_PACK_ENV_NAME: ${{ env.CONDA_PACK_ENV_NAME }}
+          DATETIME_STRING: ${{ env.DATETIME_STRING }}
 
       - name: Set artifact file name for release
         if: github.event_name == 'release'
         run: |
-          export ARTIFACT_FILE_NAME="${{ env.CONDA_PACK_ENV_NAME }}"
+          export ARTIFACT_FILE_NAME="${CONDA_PACK_ENV_NAME}"
           echo "ARTIFACT_FILE_NAME=${ARTIFACT_FILE_NAME}" >> $GITHUB_ENV
 
           export RETENTION_DAYS=90
           echo "RETENTION_DAYS=${RETENTION_DAYS}" >> $GITHUB_ENV
+        env:
+          CONDA_PACK_ENV_NAME: ${{ env.CONDA_PACK_ENV_NAME }}
 
       - name: Share artifact file name
         id: artifact-file-name
         run: |
-          echo "artifacts_dir=${{ env.ARTIFACTS_DIR }}" >> $GITHUB_OUTPUT
-          echo "artifact_py${{ env.PYTHONVER }}=${ARTIFACT_FILE_NAME}" >> $GITHUB_OUTPUT
-          echo "conda_pack_env_py${{ env.PYTHONVER }}=${CONDA_PACK_ENV_NAME}" >> $GITHUB_OUTPUT
+          echo "artifacts_dir=${ARTIFACTS_DIR}" >> $GITHUB_OUTPUT
+          echo "artifact_py${PYTHONVER}=${ARTIFACT_FILE_NAME}" >> $GITHUB_OUTPUT
+          echo "conda_pack_env_py${PYTHONVER}=${CONDA_PACK_ENV_NAME}" >> $GITHUB_OUTPUT
+        env:
+          ARTIFACTS_DIR: ${{ env.ARTIFACTS_DIR }}
+          PYTHONVER: ${{ env.PYTHONVER }}
 
       - name: Remove system-wide condarc
         run: |
@@ -177,7 +188,9 @@ jobs:
       - name: Share checksum with the output
         id: checksum_md5
         run: |
-          echo "checksum_md5_py${{ env.PYTHONVER }}=$(cat ${ARTIFACTS_DIR}/${CONDA_PACK_ENV_NAME}-md5sum.txt | sed 's/.*= //')" >> $GITHUB_OUTPUT
+          echo "checksum_md5_py${PYTHONVER}=$(cat ${ARTIFACTS_DIR}/${CONDA_PACK_ENV_NAME}-md5sum.txt | sed 's/.*= //')" >> $GITHUB_OUTPUT
+        env:
+          PYTHONVER: ${{ env.PYTHONVER }}
 
       - name: Upload artifacts for the env tarball
         uses: actions/upload-artifact@v4
@@ -217,6 +230,8 @@ jobs:
     steps:
       - name: Checkout the code
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       - name: Set env vars
         run: |
@@ -275,6 +290,8 @@ jobs:
     steps:
       - name: Checkout the code
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       - name: Download all artifacts
         id: download
@@ -284,31 +301,33 @@ jobs:
 
       - name: Flatten artifact directories
         run: |
-          echo "Download path: ${{ steps.download.outputs.download-path }}"
+          echo "Download path: ${STEPS_DOWNLOAD_OUTPUTS_DOWNLOAD_PATH}"
           echo "Contents before flattening:"
-          ls -la "${{ steps.download.outputs.download-path }}"
+          ls -la "${STEPS_DOWNLOAD_OUTPUTS_DOWNLOAD_PATH}"
 
           # Find all directories except the download path itself
-          for dir in "${{ steps.download.outputs.download-path }}"/*; do
+          for dir in "${STEPS_DOWNLOAD_OUTPUTS_DOWNLOAD_PATH}"/*; do
             if [ -d "$dir" ]; then
               echo "Processing directory: $dir"
               # Move all files to the download path
-              find "$dir" -type f -exec mv -v {} "${{ steps.download.outputs.download-path }}/" \;
+              find "$dir" -type f -exec mv -v {} "${STEPS_DOWNLOAD_OUTPUTS_DOWNLOAD_PATH}/" \;
               # Remove the now empty directory
               rm -rf "$dir"
             fi
           done
 
           echo "Contents after flattening:"
-          ls -la "${{ steps.download.outputs.download-path }}"
+          ls -la "${STEPS_DOWNLOAD_OUTPUTS_DOWNLOAD_PATH}"
 
           echo "Renaming .yml to .yml.txt"
-          for file in "${{ steps.download.outputs.download-path }}"/*.yml; do
+          for file in "${STEPS_DOWNLOAD_OUTPUTS_DOWNLOAD_PATH}"/*.yml; do
             mv "$file" "$file.txt"
           done
 
           echo "Contents after renaming:"
-          ls -la "${{ steps.download.outputs.download-path }}"
+          ls -la "${STEPS_DOWNLOAD_OUTPUTS_DOWNLOAD_PATH}"
+        env:
+          STEPS_DOWNLOAD_OUTPUTS_DOWNLOAD_PATH: ${{ steps.download.outputs.download-path }}
 
       - name: Upload to Zenodo
         run: |
@@ -316,5 +335,7 @@ jobs:
           echo "ZENODO_TOKEN=${ZENODO_TOKEN}" >> $GITHUB_ENV
           python3 zenodo_upload.py \
             --conceptrecid "4057062" \
-            --version "${{ github.ref_name }}" \
-            --artifacts-dir "${{ steps.download.outputs.download-path }}"
+            --version "${GITHUB_REF_NAME}" \
+            --artifacts-dir "${STEPS_DOWNLOAD_OUTPUTS_DOWNLOAD_PATH}"
+        env:
+          STEPS_DOWNLOAD_OUTPUTS_DOWNLOAD_PATH: ${{ steps.download.outputs.download-path }}
