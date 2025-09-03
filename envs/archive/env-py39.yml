@@ -9,7 +9,6 @@ dependencies:
   #***************************************************************************#
   - python >=3.9,<3.10
   - amostra <=1.0
-  - ansiwrap
   - area-detector-handlers >=0.0.9
   - arvpyf
   - attrs >=18.0
