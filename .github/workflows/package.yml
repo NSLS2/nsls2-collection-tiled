@@ -113,7 +113,7 @@ jobs:
           sudo rm -f /usr/share/miniconda/.condarc
 
       - name: Setup umamba
-        uses: mamba-org/setup-micromamba@b09ef9b599704322748535812ca03efb2625677b # v2
+        uses: mamba-org/setup-micromamba@4b9113af4fba0e9e1124b252dd6497a419e7396d # v1.11.0
         with:
           environment-file: envs/env-py${{ env.PYTHONVER }}.yml
           log-level: info
