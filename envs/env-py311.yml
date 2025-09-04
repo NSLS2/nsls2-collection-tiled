@@ -1,4 +1,4 @@
-name: 2025-2.2-py311-tiled
+name: 2025-3.0-py311-tiled
 channels:
   - conda-forge
 dependencies:
