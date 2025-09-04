@@ -91,9 +91,6 @@ jobs:
 
           export RETENTION_DAYS=14
           echo "RETENTION_DAYS=${RETENTION_DAYS}" >> $GITHUB_ENV
-        env:
-          CONDA_PACK_ENV_NAME: ${{ env.CONDA_PACK_ENV_NAME }}
-          DATETIME_STRING: ${{ env.DATETIME_STRING }}
 
       - name: Set artifact file name for release
         if: github.event_name == 'release'
@@ -103,8 +100,6 @@ jobs:
 
           export RETENTION_DAYS=90
           echo "RETENTION_DAYS=${RETENTION_DAYS}" >> $GITHUB_ENV
-        env:
-          CONDA_PACK_ENV_NAME: ${{ env.CONDA_PACK_ENV_NAME }}
 
       - name: Share artifact file name
         id: artifact-file-name
@@ -112,9 +107,6 @@ jobs:
           echo "artifacts_dir=${ARTIFACTS_DIR}" >> $GITHUB_OUTPUT
           echo "artifact_py${PYTHONVER}=${ARTIFACT_FILE_NAME}" >> $GITHUB_OUTPUT
           echo "conda_pack_env_py${PYTHONVER}=${CONDA_PACK_ENV_NAME}" >> $GITHUB_OUTPUT
-        env:
-          ARTIFACTS_DIR: ${{ env.ARTIFACTS_DIR }}
-          PYTHONVER: ${{ env.PYTHONVER }}
 
       - name: Remove system-wide condarc
         run: |
@@ -189,8 +181,6 @@ jobs:
         id: checksum_md5
         run: |
           echo "checksum_md5_py${PYTHONVER}=$(cat ${ARTIFACTS_DIR}/${CONDA_PACK_ENV_NAME}-md5sum.txt | sed 's/.*= //')" >> $GITHUB_OUTPUT
-        env:
-          PYTHONVER: ${{ env.PYTHONVER }}
 
       - name: Upload artifacts for the env tarball
         uses: actions/upload-artifact@v4
