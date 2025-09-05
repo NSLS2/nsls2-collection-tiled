@@ -63,71 +63,71 @@ dependencies:
   - flake8
   - fpdf2
   - gladier
-  - gladier-tools
-  - globus-sdk
-  - globus-compute-sdk
-  - graphviz
-  - grid-strategy
-  - h5py !=3.4
-  - hdf5-external-filter-plugins
-  - hextools >=0.2.2
-  - historydict
-  - hvplot
-  - hxntools >=0.6.1
-  - igor
-  - imageio
-  - inflection
-  - ipyaggrid
-  - ipydatagrid
-  - ipykernel
-  - ipympl >=0.1.1
-  - ipython >=7.20.0
-  - ipywidgets >=7.2.1
-  - isort
-  - ispyb
-  - isstools
-  - jedi
-  - julia
-  - juliaup
-  - jupyter
-  - jupyterlab
-  - larixite
-  - ldap3
-  - legacy-suitcase
-  - lixtools
-  - lmfit
-  - lxml
-  - matplotlib >=3.6.2
-  - memory_profiler
-  - mendeleev
-  - modestimage
-  - mpl-qtthread
-  - mxtools >=1.0.3
-  - napari >=0.4.17
-  - natsort
-  - netcdf4
-  - nexpy >=1.0.7
-  - nodejs
-  - nsls2-detector-handlers >=0.0.3
-  - nslsii >=0.11.4
-  - numexpr >=2.8.0,!=2.8.4
-  - numpy >=1.20
-  - nyxtools >=0.0.12
-  - oct2py
-  - opencv
-  - openmpi >=4.1.4
-  - ophyd >=1.11.0
-  # pandas and deps
-  - pandas
-  - openpyxl  # used by pandas .to_excel()
-  - pyarrow  # >=14.0.1  # used by pandas .to_parquet()
-  - pytables  # used by pandas .to_hdf()
-  # end of pandas deps
-  - papermill
-  - pdfstream ==0.5.2  # same as in the 2022-2.0-py37 env, https://zenodo.org/records/6462525/files/2022-2.0-py37.yml
-  - peakutils
-  - periodictable
-  - photutils
+  # - gladier-tools
+  # - globus-sdk
+  # - globus-compute-sdk
+  # - graphviz
+  # - grid-strategy
+  # - h5py !=3.4
+  # - hdf5-external-filter-plugins
+  # - hextools >=0.2.2
+  # - historydict
+  # - hvplot
+  # - hxntools >=0.6.1
+  # - igor
+  # - imageio
+  # - inflection
+  # - ipyaggrid
+  # - ipydatagrid
+  # - ipykernel
+  # - ipympl >=0.1.1
+  # - ipython >=7.20.0
+  # - ipywidgets >=7.2.1
+  # - isort
+  # - ispyb
+  # - isstools
+  # - jedi
+  # - julia
+  # - juliaup
+  # - jupyter
+  # - jupyterlab
+  # - larixite
+  # - ldap3
+  # - legacy-suitcase
+  # - lixtools
+  # - lmfit
+  # - lxml
+  # - matplotlib >=3.6.2
+  # - memory_profiler
+  # - mendeleev
+  # - modestimage
+  # - mpl-qtthread
+  # - mxtools >=1.0.3
+  # - napari >=0.4.17
+  # - natsort
+  # - netcdf4
+  # - nexpy >=1.0.7
+  # - nodejs
+  # - nsls2-detector-handlers >=0.0.3
+  # - nslsii >=0.11.4
+  # - numexpr >=2.8.0,!=2.8.4
+  # - numpy >=1.20
+  # - nyxtools >=0.0.12
+  # - oct2py
+  # - opencv
+  # - openmpi >=4.1.4
+  # - ophyd >=1.11.0
+  # # pandas and deps
+  # - pandas
+  # - openpyxl  # used by pandas .to_excel()
+  # - pyarrow  # >=14.0.1  # used by pandas .to_parquet()
+  # - pytables  # used by pandas .to_hdf()
+  # # end of pandas deps
+  # - papermill
+  # - pdfstream ==0.5.2  # same as in the 2022-2.0-py37 env, https://zenodo.org/records/6462525/files/2022-2.0-py37.yml
+  # - peakutils
+  # - periodictable
+  # - photutils
   # - pillow
   # - pocl  # needed by pyopencl, used by the `xrt` package
   # - pre-commit
