@@ -150,7 +150,7 @@ jobs:
 
       - name: Export of the env .yml file
         run: |
-          conda env export -f ${ARTIFACTS_DIR}/${CONDA_PACK_ENV_NAME}.yml
+          conda env export -f ${ARTIFACTS_DIR}/${CONDA_PACK_ENV_NAME}.yml --format=yaml
           cat ${ARTIFACTS_DIR}/${CONDA_PACK_ENV_NAME}.yml
 
       # https://github.com/actions/upload-artifact
