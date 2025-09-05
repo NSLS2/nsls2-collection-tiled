@@ -63,40 +63,42 @@ dependencies:
   - flake8
   - fpdf2
   - gladier
-  # - gladier-tools
-  # - globus-sdk
-  # - globus-compute-sdk
-  # - graphviz
-  # - grid-strategy
-  # - h5py !=3.4
-  # - hdf5-external-filter-plugins
-  # - hextools >=0.2.2
-  # - historydict
-  # - hvplot
-  # - hxntools >=0.6.1
-  # - igor
-  # - imageio
-  # - inflection
-  # - ipyaggrid
-  # - ipydatagrid
-  # - ipykernel
-  # - ipympl >=0.1.1
-  # - ipython >=7.20.0
-  # - ipywidgets >=7.2.1
-  # - isort
-  # - ispyb
-  # - isstools
-  # - jedi
-  # - julia
-  # - juliaup
-  # - jupyter
-  # - jupyterlab
-  # - larixite
-  # - ldap3
-  # - legacy-suitcase
-  # - lixtools
-  # - lmfit
-  # - lxml
+  ### Uncomment a portion of packages timestamp: 2025-09-05 11:30:00
+  - gladier-tools
+  - globus-sdk
+  - globus-compute-sdk
+  - graphviz
+  - grid-strategy
+  - h5py !=3.4
+  - hdf5-external-filter-plugins
+  - hextools >=0.2.2
+  - historydict
+  - hvplot
+  - hxntools >=0.6.1
+  - igor
+  - imageio
+  - inflection
+  - ipyaggrid
+  - ipydatagrid
+  - ipykernel
+  - ipympl >=0.1.1
+  - ipython >=7.20.0
+  - ipywidgets >=7.2.1
+  - isort
+  - ispyb
+  - isstools
+  - jedi
+  - julia
+  - juliaup
+  - jupyter
+  - jupyterlab
+  - larixite
+  - ldap3
+  - legacy-suitcase
+  - lixtools
+  - lmfit
+  - lxml
+  ### Uncommented up to here timestamp: 2025-09-05 11:30:00
   # - matplotlib >=3.6.2
   # - memory_profiler
   # - mendeleev
