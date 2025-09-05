@@ -209,17 +209,17 @@ dependencies:
   - pipx
   - pixi
   - pip
-  - pip:
-    # - bloptools >=0.7.0
-    - digautoprofiler
-    # - gladier
-    # - gladier-tools
-    - h5json
-    - mimesis
-    - ophyd-async[ca,pva] >=0.13.1
-    - ortools
-    - pyhyperscattering[bluesky,ui] >=0.2.9
-    - refuse
+  # - pip:
+  #   # - bloptools >=0.7.0
+  #   - digautoprofiler
+  #   # - gladier
+  #   # - gladier-tools
+  #   - h5json
+  #   - mimesis
+  #   - ophyd-async[ca,pva] >=0.13.1
+  #   - ortools
+  #   - pyhyperscattering[bluesky,ui] >=0.2.9
+  #   - refuse
   #***************************************************************************#
   #                                                                           #
   #            Dependencies from the `nsls2-collection` metapackage           #
