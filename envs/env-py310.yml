@@ -96,7 +96,7 @@ dependencies:
   - juliaup
   - jupyter
   - jupyterlab
-  - larixite
+  # - larixite
   # - ldap3
   # - legacy-suitcase
   # - lixtools
