@@ -77,17 +77,19 @@ dependencies:
   - hxntools >=0.6.1
   - igor
   - imageio
-  ### Uncommented from to here timestamp: 2025-09-05 11:39:00
-  # - inflection
-  # - ipyaggrid
-  # - ipydatagrid
-  # - ipykernel
-  # - ipympl >=0.1.1
-  # - ipython >=7.20.0
-  # - ipywidgets >=7.2.1
-  # - isort
-  # - ispyb
-  # - isstools
+  ### Uncommented from here timestamp: 2025-09-05 11:39:00
+  ### Uncommented from here timestamp: 2025-09-05 11:49:00
+  - inflection
+  - ipyaggrid
+  - ipydatagrid
+  - ipykernel
+  - ipympl >=0.1.1
+  - ipython >=7.20.0
+  - ipywidgets >=7.2.1
+  - isort
+  - ispyb
+  - isstools
+  ### Uncommented to here timestamp: 2025-09-05 11:49:00
   # - jedi
   # - julia
   # - juliaup
