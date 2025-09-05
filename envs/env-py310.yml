@@ -128,133 +128,133 @@ dependencies:
   - peakutils
   - periodictable
   - photutils
-  - pillow
-  - pocl  # needed by pyopencl, used by the `xrt` package
-  - pre-commit
-  - prefect >=2.18,<3
-  - py-xgboost
-  - py4xs
-  - pycentroids
-  - pycryptodome
-  - pydantic !=2.11.4
-  - pyepics >=3.4.2
-  - pyfai >=2024.5.0
-  - pygithub
-  - pyfftw
-  - pymatgen >=2024.5.1
-  - maggma >=0.66
-  - mp-api >=0.41.2
-  - pymca
-  - pymcr
-  - pymongo >=3.7
-  - pyobjcryst
-  - pypdf2
-  - pyqt >=5.15.0
-  - pyqtgraph
-  # - pyside6
-  - pystackreg
-  - python-blosc
-  - python-graphviz
-  - python-pptx
-  - pyvisa
-  - pyvisa-py
-  - pyxrf >=1.0.28
-  - pyzbar
-  - qt >=5.15.0
-  - redis-dict
-  - redis-json-dict >=0.2.1
-  - redis-py
-  - reportlab
-  - requests
-  - rich >=14.1.0
-  # - sasview  # does not work with pyqt>=5.15
-  - scikit-beam >=0.0.24
-  - scikit-learn
-  - scipy >=1.9
-  - seaborn
-  - silx
-  - sixtools
-  - slackclient
-  - smi-analysis
-  - sqlalchemy >=2.0.20
-  - suitcase-csv
-  - suitcase-json-metadata
-  - suitcase-jsonl
-  - suitcase-mongo >=0.7.0
-  - suitcase-msgpack
-  - suitcase-specfile
-  - suitcase-tiff >=0.4.0
-  - suitcase-utils
-  - sympy
-  - tiled >=0.1.0b39
-  - toml
-  # Latest tomopy v1.15.2 has conflicts with some packages in this environment.
-  - tomopy >=1.12.2
-  - tornado
-  - tqdm
-  - tzlocal !=3.0
-  - xlrd
-  - xlwt
-  - xmidas >=0.1.2
-  - xray-vision >=0.1.1
-  - xraylarch >=0.9.66
-  - zbar  # dependency of pyzbar
-  # Simulation packages:
-  - oscars
-  # - shadow3 >=23.1.4
-  - srwpy >=4.1.0
-  # - sirepo-bluesky >=0.6.2
-  - xrt
-  - zict
-  - pipx
-  - pixi
-  - pip
-  # - pip:
-  #   # - bloptools >=0.7.0
-  #   - digautoprofiler
-  #   # - gladier
-  #   # - gladier-tools
-  #   - h5json
-  #   - mimesis
-  #   - ophyd-async[ca,pva] >=0.13.1
-  #   - ortools
-  #   - pyhyperscattering[bluesky,ui] >=0.2.9
-  #   - refuse
-  #***************************************************************************#
-  #                                                                           #
-  #            Dependencies from the `nsls2-collection` metapackage           #
-  #                                                                           #
-  #***************************************************************************#
-  - bluesky-darkframes >=0.6.0
-  - caproto
-  - emojis
-  - happi
-  - pexpect
-  # - pydm
-  - pyolog >=4.5.1
-  - pyserial
-  - python-confluent-kafka
-  - pyzenodo3
-  - simple-pid
-  - slack-sdk
-  # Beamline-specific packages
-  - hklpy  # [linux]
-  - hklpy2
-  - hxnfly >=0.0.11
-  - kkcalc
-  - ppmac
-  - pychx >=4.3.1
-  - xpdacq ==1.0.0
-  # Debugging tools:
-  - hunter
-  - logging_tree
-  # Profiling tools:
-  - line_profiler
-  - pyinstrument
-  - pyperformance
-  # ML:
-  - botorch
-  - gpytorch
-  # - ortools-python
-  - pytorch
-  - scikit-optimize
+  # - pillow
+  # - pocl  # needed by pyopencl, used by the `xrt` package
+  # - pre-commit
+  # - prefect >=2.18,<3
+  # - py-xgboost
+  # - py4xs
+  # - pycentroids
+  # - pycryptodome
+  # - pydantic !=2.11.4
+  # - pyepics >=3.4.2
+  # - pyfai >=2024.5.0
+  # - pygithub
+  # - pyfftw
+  # - pymatgen >=2024.5.1
+  # - maggma >=0.66
+  # - mp-api >=0.41.2
+  # - pymca
+  # - pymcr
+  # - pymongo >=3.7
+  # - pyobjcryst
+  # - pypdf2
+  # - pyqt >=5.15.0
+  # - pyqtgraph
+  # # - pyside6
+  # - pystackreg
+  # - python-blosc
+  # - python-graphviz
+  # - python-pptx
+  # - pyvisa
+  # - pyvisa-py
+  # - pyxrf >=1.0.28
+  # - pyzbar
+  # - qt >=5.15.0
+  # - redis-dict
+  # - redis-json-dict >=0.2.1
+  # - redis-py
+  # - reportlab
+  # - requests
+  # - rich >=14.1.0
+  # # - sasview  # does not work with pyqt>=5.15
+  # - scikit-beam >=0.0.24
+  # - scikit-learn
+  # - scipy >=1.9
+  # - seaborn
+  # - silx
+  # - sixtools
+  # - slackclient
+  # - smi-analysis
+  # - sqlalchemy >=2.0.20
+  # - suitcase-csv
+  # - suitcase-json-metadata
+  # - suitcase-jsonl
+  # - suitcase-mongo >=0.7.0
+  # - suitcase-msgpack
+  # - suitcase-specfile
+  # - suitcase-tiff >=0.4.0
+  # - suitcase-utils
+  # - sympy
+  # - tiled >=0.1.0b39
+  # - toml
+  # # Latest tomopy v1.15.2 has conflicts with some packages in this environment.
+  # - tomopy >=1.12.2
+  # - tornado
+  # - tqdm
+  # - tzlocal !=3.0
+  # - xlrd
+  # - xlwt
+  # - xmidas >=0.1.2
+  # - xray-vision >=0.1.1
+  # - xraylarch >=0.9.66
+  # - zbar  # dependency of pyzbar
+  # # Simulation packages:
+  # - oscars
+  # # - shadow3 >=23.1.4
+  # - srwpy >=4.1.0
+  # # - sirepo-bluesky >=0.6.2
+  # - xrt
+  # - zict
+  # - pipx
+  # - pixi
+  # - pip
+  # # - pip:
+  # #   # - bloptools >=0.7.0
+  # #   - digautoprofiler
+  # #   # - gladier
+  # #   # - gladier-tools
+  # #   - h5json
+  # #   - mimesis
+  # #   - ophyd-async[ca,pva] >=0.13.1
+  # #   - ortools
+  # #   - pyhyperscattering[bluesky,ui] >=0.2.9
+  # #   - refuse
+  # #***************************************************************************#
+  # #                                                                           #
+  # #            Dependencies from the `nsls2-collection` metapackage           #
+  # #                                                                           #
+  # #***************************************************************************#
+  # - bluesky-darkframes >=0.6.0
+  # - caproto
+  # - emojis
+  # - happi
+  # - pexpect
+  # # - pydm
+  # - pyolog >=4.5.1
+  # - pyserial
+  # - python-confluent-kafka
+  # - pyzenodo3
+  # - simple-pid
+  # - slack-sdk
+  # # Beamline-specific packages
+  # - hklpy  # [linux]
+  # - hklpy2
+  # - hxnfly >=0.0.11
+  # - kkcalc
+  # - ppmac
+  # - pychx >=4.3.1
+  # - xpdacq ==1.0.0
+  # # Debugging tools:
+  # - hunter
+  # - logging_tree
+  # # Profiling tools:
+  # - line_profiler
+  # - pyinstrument
+  # - pyperformance
+  # # ML:
+  # - botorch
+  # - gpytorch
+  # # - ortools-python
+  # - pytorch
+  # - scikit-optimize
