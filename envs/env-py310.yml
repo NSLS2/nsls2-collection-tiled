@@ -90,17 +90,19 @@ dependencies:
   - ispyb
   - isstools
   ### Uncommented to here timestamp: 2025-09-05 11:49:00
-  # - jedi
-  # - julia
-  # - juliaup
-  # - jupyter
-  # - jupyterlab
-  # - larixite
+  ### Uncommented from here timestamp: 2025-09-05 11:59:00
+  - jedi
+  - julia
+  - juliaup
+  - jupyter
+  - jupyterlab
+  - larixite
   # - ldap3
   # - legacy-suitcase
   # - lixtools
   # - lmfit
   # - lxml
+  ### Uncommented up to here timestamp: 2025-09-05 11:59:00
   ### Uncommented up to here timestamp: 2025-09-05 11:39:00
   ### Uncommented up to here timestamp: 2025-09-05 11:30:00
   # - matplotlib >=3.6.2
