@@ -87,8 +87,8 @@ dependencies:
   - ispyb
   - isstools
   - jedi
-  - julia
-  - juliaup
+  # - julia
+  # - juliaup
   - jupyter
   - jupyterlab
   - larixite
