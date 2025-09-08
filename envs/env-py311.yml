@@ -166,7 +166,7 @@ dependencies:
   - redis-py
   - reportlab
   - requests
-  # - rich >=14.1.0
+  - rich
   # - sasview  # does not work with pyqt>=5.15
   - scikit-beam >=0.0.24
   - scikit-learn
