@@ -257,7 +257,7 @@ jobs:
           ls -la ${ARTIFACTS_DIR}
 
       - name: Test the env with the beamline integration test action
-        uses: NSLS2/gha-beamline-integration-test@2025-1.0-test
+        uses: NSLS2/gha-beamline-integration-test@2025-3.0-test
         with:
           conda_env_url: ""
           conda_env_md5: "${{ env.CONDA_PACK_ENV_CHECKSUM_MD5 }}"
