@@ -59,6 +59,7 @@ dependencies:
   - eiger-io
   - event-model >=1.21
   - fabio
+  - fastapi >=0.115.8
   - ffmpeg >=4.0
   - flake8
   - fpdf2
