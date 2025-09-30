@@ -186,7 +186,7 @@ dependencies:
   - suitcase-tiff >=0.4.0
   - suitcase-utils
   - sympy
-  - tiled >=0.1.0b39
+  - tiled >=0.1.6
   - toml
   # Latest tomopy v1.15.2 has conflicts with some packages in this environment.
   - tomopy >=1.12.2
