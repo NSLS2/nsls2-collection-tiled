@@ -10,6 +10,7 @@ import nslsii
 import numexpr
 import larch
 import larch.xrd
+import numba
 from numba import cuda
 
 parser = argparse.ArgumentParser(description="Test import of various Python packages.")
@@ -36,4 +37,5 @@ print(f"{tiled.__version__ = }")
 print(f"{nslsii.__version__ = }")
 print(f"{numexpr.__version__ = }")
 print(f"{larch.__version__ = }")
+print(f"{numba.__version__ = }")
 print(cuda.__file__)
