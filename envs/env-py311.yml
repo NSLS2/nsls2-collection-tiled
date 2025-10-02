@@ -112,6 +112,7 @@ dependencies:
   - nsls2-detector-handlers >=0.0.3
   - nslsii >=0.11.4
   - numba-cuda
+  - cuda-version >=12,<13
   - numexpr >=2.8.0,!=2.8.4
   - numpy >=1.20
   - nyxtools >=0.0.12
