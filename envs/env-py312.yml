@@ -146,7 +146,6 @@ dependencies:
   - pymatgen >=2024.5.1
   - maggma >=0.66
   - mp-api >=0.41.2
-  - pymca
   - pymcr
   - pymongo >=3.7
   - pyobjcryst
