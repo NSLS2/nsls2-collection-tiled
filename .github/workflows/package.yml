@@ -35,7 +35,7 @@ jobs:
     needs: pre-commit
     strategy:
       matrix:
-        python-version: ["3.10", "3.11", "3.12"]
+        python-version: ["3.11", "3.12"]
       fail-fast: false
     env:
       TZ: America/New_York
@@ -113,10 +113,10 @@ jobs:
           sudo rm -f /usr/share/miniconda/.condarc
 
       - name: Setup umamba
-        uses: mamba-org/setup-micromamba@b09ef9b599704322748535812ca03efb2625677b # v2
+        uses: mamba-org/setup-micromamba@7f29b8b80078b1b601dfa018b0f7425c587c63bb # v2.0.6
         with:
           environment-file: envs/env-py${{ env.PYTHONVER }}.yml
-          log-level: info
+          log-level: debug
         env:
           CONDA_OVERRIDE_GLIBC: "2.28"
 
@@ -150,7 +150,7 @@ jobs:
 
       - name: Export of the env .yml file
         run: |
-          conda env export -f ${ARTIFACTS_DIR}/${CONDA_PACK_ENV_NAME}.yml
+          conda env export -f ${ARTIFACTS_DIR}/${CONDA_PACK_ENV_NAME}.yml --format=yaml
           cat ${ARTIFACTS_DIR}/${CONDA_PACK_ENV_NAME}.yml
 
       # https://github.com/actions/upload-artifact
@@ -208,7 +208,7 @@ jobs:
             repo: "tes-profile-collection"
             branch: "main"
             beamline-acronym: "tes"
-        python-version: ["3.10", "3.11", "3.12"]
+        python-version: ["3.11", "3.12"]
       fail-fast: false
     env:
       TZ: America/New_York

@@ -1,4 +1,4 @@
-name: 2025-2.2-py312-tiled
+name: 2025-3.0-py312-tiled
 channels:
   - conda-forge
 dependencies:
@@ -18,18 +18,19 @@ dependencies:
   - awkward
   - black
   - blosc-hdf5-plugin
-  - bluesky >=1.14.2
+  - bluesky >=1.14.4
   - bluesky-adaptive >=0.3.1
   - bluesky-kafka >=0.10.0
   - bluesky-live >=0.0.8
   - bluesky-queueserver >=0.0.19
   - bluesky-queueserver-api >=0.0.10
-  - bluesky-tiled-plugins >=2.0.0b64
+  - bluesky-tiled-plugins >=2.0.0b68
   - bluesky-widgets >=0.0.15
   - bokeh
   - boto3
   - bottleneck
   # - broh5
+  - cditools >=0.1.0
   - chxtools
   - cmasher
   - conda-pack
@@ -43,7 +44,7 @@ dependencies:
   - dask-jobqueue
   - dask-ml
   - dask-xgboost
-  - databroker >=2.0.0b64
+  - databroker >=2.0.0b68
   - datview
   - dictdiffer
   - diffpy.pdffit2
@@ -58,6 +59,7 @@ dependencies:
   - eiger-io
   - event-model >=1.21
   - fabio
+  - fastapi >=0.115.8
   - ffmpeg >=4.0
   - flake8
   - fpdf2
@@ -86,8 +88,8 @@ dependencies:
   - ispyb
   - isstools
   - jedi
-  - julia
-  - juliaup
+  # - julia
+  # - juliaup
   - jupyter
   - jupyterlab
   - larixite
@@ -108,14 +110,16 @@ dependencies:
   - nexpy >=1.0.7
   - nodejs
   - nsls2-detector-handlers >=0.0.3
-  - nslsii >=0.11.1
+  - nslsii >=0.11.4
+  - numba-cuda
+  - cuda-version >=12,<13
   - numexpr >=2.8.0,!=2.8.4
   - numpy >=1.20
   - nyxtools >=0.0.12
   - oct2py
   - opencv
   - openmpi >=4.1.4
-  - ophyd >=1.10.5
+  - ophyd >=1.11.0
   # pandas and deps
   - pandas
   - openpyxl  # used by pandas .to_excel()
@@ -130,7 +134,6 @@ dependencies:
   - pillow
   - pocl  # needed by pyopencl, used by the `xrt` package
   - pre-commit
-  - prefect >=2.18,<3
   - py-xgboost
   - py4xs
   - pycentroids
@@ -143,7 +146,6 @@ dependencies:
   - pymatgen >=2024.5.1
   - maggma >=0.66
   - mp-api >=0.41.2
-  - pymca
   - pymcr
   - pymongo >=3.7
   - pyobjcryst
@@ -165,6 +167,7 @@ dependencies:
   - redis-py
   - reportlab
   - requests
+  - rich
   # - sasview  # does not work with pyqt>=5.15
   - scikit-beam >=0.0.24
   - scikit-learn
@@ -184,7 +187,7 @@ dependencies:
   - suitcase-tiff >=0.4.0
   - suitcase-utils
   - sympy
-  - tiled >=0.1.0b29
+  - tiled >=0.1.6
   - toml
   # Latest tomopy v1.15.2 has conflicts with some packages in this environment.
   - tomopy >=1.12.2
@@ -214,7 +217,7 @@ dependencies:
     # - gladier-tools
     - h5json
     - mimesis
-    - ophyd-async[ca,pva] >=0.10.0a2
+    - ophyd-async[ca,pva] >=0.13.1
     - ortools
     - pyhyperscattering[bluesky,ui] >=0.2.9
     - refuse
